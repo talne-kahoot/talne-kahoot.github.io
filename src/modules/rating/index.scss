@@ -7,13 +7,13 @@
   align-items: center;
   overflow: scroll;
 
-
-  background: linear-gradient(180deg, rgba(35, 142, 89, 1) 0%, rgba(87, 254, 140, 1) 100%);
   color: white;
 
 
   .rating__title {
     font-family: 'Dela Gothic One', cursive;
+    color: white;
+    -webkit-text-stroke: 1.8px black;
     font-size: 70px;
     display: flex;
     justify-content: center;
@@ -21,7 +21,8 @@
 
     @media (max-width: 768px) {
       padding-top: 20px;
-      margin: 0;padding-bottom: 0;
+      margin: 0;
+      padding-bottom: 0;
     }
   }
 
@@ -119,7 +120,8 @@
      position: static;
       width: 90%;
       color: white;
-      border: 1px solid white;
+      background: rgba(0, 0, 0, 0.1);
+      border: 2px solid white;
       top: 0;
       right: 0;
       margin-top: 20px;
@@ -128,7 +130,7 @@
     &:hover {
       color: white;
       border-color: white;
-      background-color: black;
+      background-color: rgba(0, 0, 0, 0.4);
     }
   }
 
