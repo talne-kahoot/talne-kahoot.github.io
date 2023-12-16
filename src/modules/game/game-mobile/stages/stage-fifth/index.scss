@@ -34,6 +34,7 @@
       display: flex;
       margin-bottom: 0;
       justify-content: center;
+      width: 100%;
     }
 
     .incorrect-answer__streak {
@@ -44,8 +45,8 @@
       display: flex;
       justify-content: center;
       align-items: center;
-
       text-align: center;
+      width: 100%;
     }
 
     .incorrect-answer__icon {
@@ -73,6 +74,7 @@
     display: flex;
     margin-bottom: 0;
     justify-content: center;
+    width: 100%;
   }
 
   .correct-answer__streak {
@@ -82,7 +84,7 @@
     font-size: 30px;
     display: flex;
     flex-direction: column;
-    width: min-content;
+    width: 100%;
     justify-content: center;
     align-items: center;
     text-align: center;

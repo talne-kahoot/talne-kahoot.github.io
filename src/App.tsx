@@ -15,17 +15,18 @@ import './main.css';
 
 function App() {
     return (
+
         <Routes>
-                <Route index element={<Home/>}/>
-                <Route path="/home-host" element={<HomeHost/>}/>
-                <Route path="/quizzes" element={
-                    <AdminHeader>
-                        <Quizzes/>
-                    </AdminHeader>
-                }/>
-                <Route path="/quiz/:id" element={
-                    <AdminHeader>
-                        <Quiz/>
+            <Route index element={<Home/>}/>
+            <Route path="/home-host" element={<HomeHost/>}/>
+            <Route path="/quizzes" element={
+                <AdminHeader>
+                    <Quizzes/>
+                </AdminHeader>
+            }/>
+            <Route path="/quiz/:id" element={
+                <AdminHeader>
+                    <Quiz/>
                     </AdminHeader>
                 }/>
                 <Route path="/game" element={<Game/>}/>

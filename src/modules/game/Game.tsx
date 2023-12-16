@@ -125,6 +125,7 @@ const Game = () => {
 
 
     return (<>
+        <div className="bg"/>
         {
             isMobile ?
                 <GameMobile stage={STAGES[currentStage || 0]} currentQuestion={currentQuestion}/> :

@@ -1,9 +1,9 @@
 import React, {useEffect, useState} from 'react';
-import {useNavigate} from 'react-router-dom';
-import {Link} from "react-router-dom";
-import {Button, TextField} from "@mui/material";
-
+import {Link, useNavigate} from 'react-router-dom';
+import {Button, Paper, TextField} from "@mui/material";
 import {onValue, ref, set} from "firebase/database";
+
+import {RatingCustomIcon, SuperAdminCustomIcon} from "../../components/icons";
 import {db} from "../../firebase/firebase.ts";
 
 import './index.scss';
@@ -77,35 +77,38 @@ const Home = () => {
 
     return (
         <div className="home">
+            <div className="bg"/>
             <div className="home__inputs">
-                <div>&nbsp;</div>
-                <TextField
-                    disabled={!isStartedQuiz}
-                    error={!!warning}
-                    helperText={warning}
-                    className="home__input"
-                    label="Ім'я"
-                    variant="outlined"
-                    onChange={(e) => {
-                        setName(e.target.value);
-                        if (warning) {
-                            setWarning(null);
-                        }
-                    }}
-                />
-                <Button disabled={!isStartedQuiz} variant="outlined" className="home__join-room" onClick={addNewUser}>
-                    Почати гру
-                </Button>
-                <div className="home__host-join">
-                    <Link to='/home-host'>
-                        Приєднатись, як адміністратор
-                    </Link>
-                </div>
-                <div className="home__host-join">
-                    <Link to='/rating'>
-                        Сторінка рейтингу
-                    </Link>
-                </div>
+                <Paper elevation={24} className="home__inputs-paper">
+                    <div className="home__title">Вхід в гру</div>
+                    <TextField
+                        disabled={!isStartedQuiz}
+                        error={!!warning}
+                        helperText={warning}
+                        className="home__input"
+                        label="Ім'я"
+                        variant="outlined"
+                        onChange={(e) => {
+                            setName(e.target.value);
+                            if (warning) {
+                                setWarning(null);
+                            }
+                        }}
+                    />
+                    <Button disabled={!isStartedQuiz} variant="outlined" className="home__join-room" onClick={addNewUser}>
+                        Почати гру
+                    </Button>
+                    <div className="home__host-action">
+                        <Link to='/rating'>
+                            <RatingCustomIcon style={{fontSize: 36}}/>
+                        </Link>
+
+                        <Link to='/home-host'>
+                            <SuperAdminCustomIcon style={{fontSize: 36}}/>
+                        </Link>
+                    </div>
+
+                </Paper>
             </div>
         </div>
     );

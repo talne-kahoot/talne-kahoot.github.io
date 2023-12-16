@@ -55,10 +55,10 @@ const Rating = () => {
 
     return (
         <div className="rating__wrapper">
-
-                <Button variant="outlined" color="success" onClick={onClick} className="rating__come-back-button">
-                    {isAdmin ? 'До запитань' : 'На головну'}
-                </Button>
+            <div className="bg"/>
+            <Button variant="outlined" color="success" onClick={onClick} className="rating__come-back-button">
+                {isAdmin ? 'До запитань' : 'На головну'}
+            </Button>
 
             <Typography variant="h3" gutterBottom className="rating__title">
                 Рейтинг

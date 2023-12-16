@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import {Button, TextField} from "@mui/material";
+import {Button, Paper, TextField} from "@mui/material";
 
 import './index.scss';
 import {Link, useNavigate} from "react-router-dom";
@@ -27,23 +27,26 @@ const HomeHost = () => {
 
     return (
         <div className="home-host">
-            <div className="home-host__title">Секретний кабінет</div>
-            <TextField className="home-host__login" label="Ім'я" variant="outlined"
-                       onChange={e => setLogin(e.currentTarget.value)} error={!!warningMessage}/>
-            <TextField className="home-host__password" label="Пароль" variant="outlined"
-                       onChange={e => setPassword(e.currentTarget.value)}
-                       error={!!warningMessage}
-                       helperText={warningMessage}
-                       type="password"
-            />
-            <Button variant="outlined" color="success" onClick={onClick} className="home-host__log-in">
-                Увійти
-            </Button>
-            <div className="home-host__return-link">
-                <Link to='/'>
-                    Повернутись назад
-                </Link>
-            </div>
+            <div className="bg"/>
+            <Paper elevation={24} className="home-host__inputs-paper">
+                <div className="home-host__title">Секретний кабінет</div>
+                <TextField className="home-host__login" label="Ім'я" variant="outlined"
+                           onChange={e => setLogin(e.currentTarget.value)} error={!!warningMessage}/>
+                <TextField className="home-host__password" label="Пароль" variant="outlined"
+                           onChange={e => setPassword(e.currentTarget.value)}
+                           error={!!warningMessage}
+                           helperText={warningMessage}
+                           type="password"
+                />
+                <Button variant="outlined" color="primary" onClick={onClick} className="home-host__log-in">
+                    Увійти
+                </Button>
+                <div className="home-host__return-link">
+                    <Link to='/' className="home-host__return-link_style">
+                        Повернутись назад
+                    </Link>
+                </div>
+            </Paper>
         </div>
     );
 };
