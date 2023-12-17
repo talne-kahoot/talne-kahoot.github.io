@@ -1,16 +1,20 @@
 import * as React from 'react';
 import LinearProgress from '@mui/material/LinearProgress';
 
-export default function Progress() {
+type Props = {
+    className?: string
+};
+
+export default function Progress({className = ''}: Props) {
     const [progress, setProgress] = React.useState(0);
 
     React.useEffect(() => {
         const timer = setInterval(() => {
             setProgress((oldProgress) => {
                 if (oldProgress === 100) {
-                    return 0;
+                    return 100;
                 }
-                const diff = Math.random() * 18;
+                const diff = 10;
                 return Math.min(oldProgress + diff, 100);
             });
         }, 500);
@@ -21,6 +25,6 @@ export default function Progress() {
     }, []);
 
     return (
-        <LinearProgress variant="determinate" value={progress}/>
+        <LinearProgress className={className} variant="determinate" value={progress}/>
     );
 }

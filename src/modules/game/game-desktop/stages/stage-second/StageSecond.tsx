@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 import {QuestionType} from "../../../../../components/card/Card.tsx";
-import {Zoom} from "@mui/material";
+import {Paper, Zoom} from "@mui/material";
 import './index.scss';
 
 type Props = {
@@ -16,14 +16,16 @@ const StageSecond = ({questions, changeStage}: Props) => {
 
     setTimeout(() => {
         changeStage();
-    }, 2700)
+    }, 3000)
     return (
-            <Zoom in={state} className="game__stage-second" timeout={1000}>
-                <div>
+        <div className="game__stage-second">
+            <Zoom in={state} className="game__stage-second-zoom" timeout={1000}>
+                <Paper elevation={24}>
                     <div className="quantity-question">{questions?.length} Запитань.</div>
                     <div className="stage-second__are-you-ready">Ви готові?</div>
-                </div>
+                </Paper>
             </Zoom>
+        </div>
     );
 };
 

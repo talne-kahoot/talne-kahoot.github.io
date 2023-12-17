@@ -16,9 +16,10 @@ type Props = {
         | 'success'
         | 'warning',
         SvgIconPropsColorOverrides
-    >
+    >,
+    className?: string
 };
 
-export const StarCustomIcon = ({color = 'primary', style}: Props) => {
-    return <StarRateIcon color={color} style={{...style}}/>
+export const StarCustomIcon = ({color = 'primary', style, className = ''}: Props) => {
+    return <StarRateIcon className={className} color={color} style={{...style}}/>
 };

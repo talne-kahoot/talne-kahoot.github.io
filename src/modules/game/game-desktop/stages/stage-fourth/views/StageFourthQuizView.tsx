@@ -1,8 +1,5 @@
 import React from 'react';
-import SquareIcon from "@mui/icons-material/CropSquare";
-import CircleIcon from "@mui/icons-material/PanoramaFishEye";
-import TriangleIcon from "@mui/icons-material/ChangeHistory";
-import StarIcon from "@mui/icons-material/StarBorderOutlined";
+import {DotCustomIcon, SquareCustomIcon, HexagonCustomIcon, StarCustomIcon} from "../../../../../../components/icons";
 import {QuizTypes} from "../../../../../../types.ts";
 
 type Props = {
@@ -12,22 +9,22 @@ export const StageFourthQuizView = ({currentQuestion}: Props) => {
     return (
         <>
             {currentQuestion?.variantA && <div className="first-button quiz">
-                <SquareIcon className="icon"/>
+                <SquareCustomIcon className="icon"/>
                 {currentQuestion?.variantA}
             </div>}
 
             {currentQuestion?.variantB && <div className="second-button">
-                <CircleIcon className="icon"/>
+                <DotCustomIcon className="icon"/>
                 {currentQuestion?.variantB}
             </div>}
 
             {currentQuestion?.variantC && <div className="third-button">
-                <TriangleIcon className="icon"/>
+                <HexagonCustomIcon className="icon"/>
                 {currentQuestion?.variantC}
             </div>}
 
             {currentQuestion?.variantD && <div className="fourth-button">
-                <StarIcon className="icon"/>
+                <StarCustomIcon className="icon" />
                 {currentQuestion?.variantD}
             </div>}
         </>

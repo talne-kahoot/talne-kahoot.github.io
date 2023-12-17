@@ -1,4 +1,9 @@
 .confirmation__modal {
+
+  .MuiDialog-paper {
+    padding: 15px;
+  }
+
   .modal__font {
     margin: 10px;
 
@@ -8,6 +13,6 @@
   .action-buttons {
     width: 100%;
     display: flex;
-    justify-content: center;
+    justify-content: flex-end;
   }
 }

@@ -4,7 +4,7 @@ import {onValue, ref, set} from "firebase/database";
 
 import {QuestionType} from "../../../../../../components/card/Card";
 import {db} from "../../../../../../firebase/firebase";
-import {TextField} from "@mui/material";
+import {TextField, Zoom} from "@mui/material";
 import Button from "@mui/material/Button";
 
 import './index.scss';
@@ -62,16 +62,24 @@ export const StageFourthTypeAnswerView = ({currentQuestion, setWaitingState}: Pr
 
     return (
         <div className="stage-fourth__type-answer-view-mobile">
-            <TextField
-                className="stage-fourth__type-answer-view-mobile-input"
-                label="Ваша відповідь"
-                variant="outlined"
-                value={value}
-                onChange={e => setValue(e.currentTarget.value)}
-            />
-            <Button variant="contained" onClick={onSave} className="stage-fourth__type-answer-view-mobile-button">
-                Зберегти
-            </Button>
+            <Zoom in={true} timeout={500}>
+                <TextField
+                    className="stage-fourth__type-answer-view-mobile-input"
+                    label="Ваша відповідь"
+                    variant="outlined"
+                    value={value}
+                    color="primary"
+                    focused
+                    onChange={e => setValue(e.currentTarget.value)}
+                />
+            </Zoom>
+
+            <Zoom in={true} timeout={500}>
+                <Button variant="contained" onClick={onSave}
+                        className="stage-fourth__type-answer-view-mobile-button">
+                    Зберегти
+                </Button>
+            </Zoom>
         </div>
     );
 };

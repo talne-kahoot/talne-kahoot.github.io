@@ -1,15 +1,15 @@
 import React, {useEffect, useState} from 'react';
-import CircleIcon from "@mui/icons-material/PanoramaFishEye";
-import SquareIcon from "@mui/icons-material/CropSquare";
+
 import CheckIcon from "@mui/icons-material/Check";
 import {Button, Zoom} from "@mui/material";
 import {onValue, ref} from "firebase/database";
 
+import {DotCustomIcon, SquareCustomIcon} from "../../../../../../components/icons";
 import {QuestionType} from "../../../../../../components/card/Card";
-import {db} from "../../../../../../firebase/firebase";
-import {getChartElements} from "../utils";
-import {User} from "../../../../types";
 import {QUESTION_TYPE} from "../../../../../../constants";
+import {db} from "../../../../../../firebase/firebase";
+import {getChartElements, getOpacityClassTrueFalse} from "../utils";
+import {User} from "../../../../types";
 
 type Props = {
     currentQuestion: QuestionType | null,
@@ -79,13 +79,13 @@ export const StageFifthTrueFalseView = ({currentQuestion, lastQuestion, onClickN
             </div>
 
             <div className="stage-fourth__footer">
-                <div className="first-button">
-                    <SquareIcon className="icon"/>
+                <div className={`first-button ${getOpacityClassTrueFalse('A', currentQuestion)}`}>
+                    <SquareCustomIcon className="icon"/>
                     Правда
                 </div>
 
-                <div className="second-button">
-                    <CircleIcon className="icon"/>
+                <div className={`second-button ${getOpacityClassTrueFalse('B', currentQuestion)}`}>
+                    <DotCustomIcon className="icon"/>
                     Не правда
                 </div>
             </div>

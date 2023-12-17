@@ -15,7 +15,6 @@ import './main.css';
 
 function App() {
     return (
-
         <Routes>
             <Route index element={<Home/>}/>
             <Route path="/home-host" element={<HomeHost/>}/>
@@ -27,13 +26,13 @@ function App() {
             <Route path="/quiz/:id" element={
                 <AdminHeader>
                     <Quiz/>
-                    </AdminHeader>
-                }/>
-                <Route path="/game" element={<Game/>}/>
-                <Route path="/rating" element={<Rating/>}/>
+                </AdminHeader>
+            }/>
+            <Route path="/game" element={<Game/>}/>
+            <Route path="/rating" element={<Rating/>}/>
 
-                <Route path="*" element={<RedirectPage/>}/>
-            </Routes>
+            <Route path="*" element={<RedirectPage/>}/>
+        </Routes>
     )
 }
 

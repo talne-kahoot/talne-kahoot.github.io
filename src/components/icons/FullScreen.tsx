@@ -16,9 +16,11 @@ type Props = {
         | 'success'
         | 'warning',
         SvgIconPropsColorOverrides
-    >
+    >,
+    className?: string,
+    onClick?: () => void
 };
 
-export const FullScreenCustomIcon = ({color = 'primary', style}: Props) => {
-    return <FullscreenIcon color={color} style={{...style}}/>;
+export const FullScreenCustomIcon = ({color = 'primary', style, className = '', onClick = () => {}}: Props) => {
+    return <FullscreenIcon onClick={onClick} className={className} color={color} style={{...style}}/>;
 };

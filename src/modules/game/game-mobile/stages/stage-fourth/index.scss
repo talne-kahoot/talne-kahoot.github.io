@@ -13,8 +13,6 @@
 
   .fourth-stage__circular-progress {
     color: white;
-
-
   }
 
   .fourth-stage__wrapper {
@@ -24,13 +22,22 @@
     align-items: center;
   }
 
-  .fourth-stage__font-wrapper {
+  .fourth-stage__waiting {
     display: flex;
     justify-content: center;
     align-items: center;
-    text-align: center;
+    background: linear-gradient(180deg, rgba(35, 142, 89, 1) 0%, rgba(87, 254, 140, 1) 100%);
+    height: 100%;
+    width: 100%;
 
-    flex-direction: column;
+    .fourth-stage__font-wrapper {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+
+      flex-direction: column;
+    }
   }
 
   .fourth-stage__font {
@@ -45,17 +52,19 @@
     .fourth-stage__icon {
       cursor: pointer;
       flex: 1;
-      flex-basis: 50%;
+      flex-basis: 45%;
       display: flex;
       justify-content: center;
       align-items: center;
+      border-radius: 5px;
+      margin: 3px;
     }
 
 
   &__icon {
     cursor: pointer;
     flex: 1;
-    flex-basis: 50%;
+    flex-basis: 45%;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -87,6 +96,10 @@
 
   .icon {
     font-size: 80px;
+    color: white;
   }
 }
 
+.fourth-stage__quiz, .fourth-stage__true-false {
+  background: white;
+}

@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import {Button, TextField, Zoom} from "@mui/material";
+import {Button, Paper, TextField, Zoom} from "@mui/material";
 import {onValue, ref} from "firebase/database";
 import CheckIcon from '@mui/icons-material/Check';
 import CloseIcon from '@mui/icons-material/Close';
@@ -58,39 +58,40 @@ export const StageFifthTypeAnswerView = ({currentQuestion, lastQuestion, onClick
     return (
         <>
             <div className="stage-fifth__body">
-                <Button variant="outlined" color="success" onClick={onClickNextStage}
+                <Button variant="outlined" onClick={onClickNextStage}
                         className="stage-fourth__next-button">
                     {currentQuestion?.id !== lastQuestion?.id ? 'Далі' : 'Результати'}
                 </Button>
 
                 <div className="stage-fourth__img stage-fifth__type-answer">
-                    {playersAnswered.map((answer) => (
-                        <Zoom in={true} timeout={
-                            answer === currentQuestion?.TYPE_ANSWER?.correctVariant ? 4000 : 2000
-                        }>
-                            <div className="stage-fifth__answer-wrapper">
-                                <TextField
-                                    value={answer}
-                                    className={`stage-fifth__answer 
+                    <Paper elevation={24} className="stage-fifth__type-answer-paper">
+                        {playersAnswered.map((answer) => (
+                            <Zoom in={true} timeout={
+                                answer === currentQuestion?.TYPE_ANSWER?.correctVariant ? 4000 : 2000
+                            }>
+                                <div className="stage-fifth__answer-wrapper">
+                                    <TextField
+                                        value={answer}
+                                        className={`stage-fifth__answer 
                                 ${answer === currentQuestion?.TYPE_ANSWER?.correctVariant ?
-                                        'stage-fifth__answer_true' :
-                                        'stage-fifth__answer_wrong'}`
+                                            'stage-fifth__answer_true' :
+                                            'stage-fifth__answer_wrong'}`
+                                        }
+                                        variant="outlined"
+                                        color="success"
+                                        size={answer === currentQuestion?.TYPE_ANSWER?.correctVariant ? 'medium' : 'small'}
+                                        focused={answer === currentQuestion?.TYPE_ANSWER?.correctVariant}
+                                        disabled={!(answer === currentQuestion?.TYPE_ANSWER?.correctVariant)}
+                                    />
+                                    {
+                                        answer === currentQuestion?.TYPE_ANSWER?.correctVariant ?
+                                            <CheckIcon color="success" className="stage-fifth__answer-icon"/>
+                                            : <CloseIcon color="disabled" className="stage-fifth__answer-wrong-icon"/>
                                     }
-                                    variant="outlined"
-                                    color="success"
-                                    size={answer === currentQuestion?.TYPE_ANSWER?.correctVariant ? 'medium' : 'small'}
-                                    focused={answer === currentQuestion?.TYPE_ANSWER?.correctVariant}
-                                    disabled={!(answer === currentQuestion?.TYPE_ANSWER?.correctVariant)}
-                                />
-                                {
-                                    answer === currentQuestion?.TYPE_ANSWER?.correctVariant ?
-                                        <CheckIcon color="success" className="stage-fifth__answer-icon"/>
-                                        : <CloseIcon color="disabled" className="stage-fifth__answer-wrong-icon"/>
-                                }
-                            </div>
-                        </Zoom>
-                    ))}
-
+                                </div>
+                            </Zoom>
+                        ))}
+                    </Paper>
                 </div>
             </div>
 

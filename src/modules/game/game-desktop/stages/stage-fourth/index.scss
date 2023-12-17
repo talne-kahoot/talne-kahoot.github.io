@@ -10,6 +10,8 @@
 
 
   .stage-fourth__next-button {
+    z-index: 2;
+    cursor: pointer;
     position: absolute;
     top: 20px;
     right: 20px;
@@ -19,7 +21,9 @@
     border-color: black;
 
     &:hover {
+      cursor: pointer;
       background-color: rgba(0, 0, 0, 0.4);
+      border: 1px solid white;
       color: white;
     }
   }
@@ -30,9 +34,19 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    font-size: 80px;
+    font-size: 2vw;
 
     text-align: center;
+
+    .stage-fourth__header-paper {
+      max-width: 95%;
+      min-width: 200px;
+      width: max-content;
+      padding: 10px 20px;
+      border-radius: 10px;
+
+      background: rgba(255, 255, 255, 1);
+    }
   }
 
   .stage-fourth__body {
@@ -51,25 +65,42 @@
 
     .stage-fourth__timer {
       font-size: 80px;
-      width: auto;
-      padding: 25px;
+      width: 180px;
+      padding: 10px;
 
       display: flex;
       justify-content: center;
       align-items: center;
       flex-direction: column;
 
+      border-radius: 50%;
+      background: white;
+      box-shadow: 0 0 10px 0 rgba(0, 0, 0, 1);
+
       div {
-        font-size: 50px;
+        font-size: 40px;
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
       }
     }
 
 
     .stage-fourth__number-of-question {
-      width: auto;
+      width: 180px;
       display: flex;
       flex-direction: column;
       align-items: center;
+      justify-content: flex-start;
+
+      background: white;
+      border-radius: 50%;
+      padding: 10px;
+      box-shadow: 0 0 10px 0 rgba(0, 0, 0, 1);
+
+      span {
+        font-size: 40px;
+      }
     }
   }
 
@@ -135,13 +166,13 @@
     div {
       display: flex;
       align-items: center;
-      padding-left: 10px;
       flex: 1 0 45%; /* 50% width for each box */
       box-sizing: border-box;
 
       .icon {
         font-size: 55px;
         padding-right: 10px;
+        color: white;
       }
     }
   }

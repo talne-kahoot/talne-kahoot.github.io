@@ -11,6 +11,7 @@ import {
 } from "./views";
 
 import './index.scss';
+import {Paper, Zoom} from "@mui/material";
 
 type Props = {
     changeStage: () => void,
@@ -27,10 +28,13 @@ const StageFifth = ({changeStage, currentQuestion, lastQuestion}: Props) => {
 
     return (
         <div className="stage-fourth stage-fifth">
-            <div className="stage-fourth__header">
-                {currentQuestion?.title}
-            </div>
-
+            <Zoom in={true} timeout={500}>
+                <div className="stage-fourth__header">
+                    <Paper elevation={24} className="stage-fourth__header-paper">
+                        {currentQuestion?.title}
+                    </Paper>
+                </div>
+            </Zoom>
             {currentQuestion?.questionType === QUESTION_TYPE.QUIZ &&
                 <StageFifthQuizView
                     currentQuestion={currentQuestion}

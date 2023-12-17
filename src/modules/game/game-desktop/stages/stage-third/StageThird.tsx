@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import {Zoom} from "@mui/material";
+import {Paper, Zoom} from "@mui/material";
 import {QuestionType} from "../../../../../components/card/Card.tsx";
 import './index.scss';
 import {Progress} from "../../../../../components/progress";
@@ -19,11 +19,12 @@ const StageThird = ({changeStage, currentQuestion}: Props) => {
     }, 5500);
 
     return (
-        <div>
-            <Zoom in={state} className="game__stage-second" timeout={1000}>
-                <div>
+        <div className="game__stage-third">
+            <div></div>
+            <Zoom in={state} className="game__stage-third-zoom" timeout={1000}>
+                <Paper elevation={24}>
                     {currentQuestion?.title}
-                </div>
+                </Paper>
             </Zoom>
             <Progress/>
         </div>

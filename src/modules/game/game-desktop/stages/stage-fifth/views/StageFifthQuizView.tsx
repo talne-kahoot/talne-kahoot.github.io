@@ -1,15 +1,12 @@
 import React, {useEffect, useState} from 'react';
-import StarIcon from "@mui/icons-material/StarBorderOutlined";
-import CircleIcon from "@mui/icons-material/PanoramaFishEye";
-import TriangleIcon from "@mui/icons-material/ChangeHistory";
-import SquareIcon from "@mui/icons-material/CropSquare";
 import CheckIcon from "@mui/icons-material/Check";
 import {Button, Zoom} from "@mui/material";
 import {onValue, ref} from "firebase/database";
 
+import {DotCustomIcon, HexagonCustomIcon, SquareCustomIcon, StarCustomIcon} from "../../../../../../components/icons";
 import {QuestionType} from "../../../../../../components/card/Card";
+import {getChartElements, getOpacityClassQuiz} from "../utils";
 import {db} from "../../../../../../firebase/firebase";
-import {getChartElements} from "../utils";
 import {User} from "../../../../types";
 
 type Props = {
@@ -53,7 +50,8 @@ export const StageFifthQuizView = ({currentQuestion, lastQuestion, onClickNextSt
     return (
         <>
             <div className="stage-fifth__body">
-                <Button variant="outlined" color="success" onClick={onClickNextStage} className="stage-fourth__next-button">
+                <Button variant="outlined" color="success" onClick={onClickNextStage}
+                        className="stage-fourth__next-button">
                     {currentQuestion?.id !== lastQuestion?.id ? 'Далі' : 'Результати'}
                 </Button>
 
@@ -79,25 +77,29 @@ export const StageFifthQuizView = ({currentQuestion, lastQuestion, onClickNextSt
             </div>
 
             <div className="stage-fourth__footer">
-                {currentQuestion?.QUIZ?.variantA && <div className="first-button">
-                    <SquareIcon className="icon"/>
-                    {currentQuestion?.QUIZ?.variantA}
-                </div>}
+                {currentQuestion?.QUIZ?.variantA &&
+                    <div className={`first-button ${getOpacityClassQuiz('A', currentQuestion)}`}>
+                        <SquareCustomIcon className="icon"/>
+                        {currentQuestion?.QUIZ?.variantA}
+                    </div>}
 
-                {currentQuestion?.QUIZ?.variantB && <div className="second-button">
-                    <CircleIcon className="icon"/>
-                    {currentQuestion?.QUIZ?.variantB}
-                </div>}
+                {currentQuestion?.QUIZ?.variantB &&
+                    <div className={`second-button ${getOpacityClassQuiz('B', currentQuestion)}`}>
+                        <DotCustomIcon className="icon"/>
+                        {currentQuestion?.QUIZ?.variantB}
+                    </div>}
 
-                {currentQuestion?.QUIZ?.variantC && <div className="third-button">
-                    <TriangleIcon className="icon"/>
-                    {currentQuestion?.QUIZ?.variantC}
-                </div>}
+                {currentQuestion?.QUIZ?.variantC &&
+                    <div className={`third-button ${getOpacityClassQuiz('C', currentQuestion)}`}>
+                        <HexagonCustomIcon className="icon"/>
+                        {currentQuestion?.QUIZ?.variantC}
+                    </div>}
 
-                {currentQuestion?.QUIZ?.variantD && <div className="fourth-button">
-                    <StarIcon className="icon"/>
-                    {currentQuestion?.QUIZ?.variantD}
-                </div>}
+                {currentQuestion?.QUIZ?.variantD &&
+                    <div className={`fourth-button ${getOpacityClassQuiz('D', currentQuestion)}`}>
+                        <StarCustomIcon className="icon"/>
+                        {currentQuestion?.QUIZ?.variantD}
+                    </div>}
             </div>
         </>
     );

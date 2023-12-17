@@ -49,8 +49,8 @@ export default function CustomModal(props: Props) {
                     onChange={(e) => setName(e.target.value)}
                 />
                 <DialogActions>
-                    <Button onClick={onSave} color="success" disabled={!name}>Зберегти</Button>
-                    <Button onClick={handleClose}>
+                    <Button onClick={onSave} color="success" disabled={!name} variant="outlined">Зберегти</Button>
+                    <Button onClick={handleClose} variant="outlined">
                         Відмінити
                     </Button>
                 </DialogActions>

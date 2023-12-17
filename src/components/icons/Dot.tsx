@@ -16,9 +16,10 @@ type Props = {
         | 'success'
         | 'warning',
         SvgIconPropsColorOverrides
-    >
+    >,
+    className?: string
 };
 
-export const DotCustomIcon = ({color = 'primary', style}: Props) => {
-    return <LensIcon color={color} style={{...style}}/>;
+export const DotCustomIcon = ({color = 'primary', style, className = ''}: Props) => {
+    return <LensIcon className={className} color={color} style={{...style}}/>;
 };

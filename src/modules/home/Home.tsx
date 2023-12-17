@@ -74,6 +74,12 @@ const Home = () => {
         });
     };
 
+    const onKeyEnter = (e: React.KeyboardEvent<HTMLDivElement>) => {
+        if (e.key === 'Enter') {
+            addNewUser();
+        }
+    }
+
 
     return (
         <div className="home">
@@ -94,6 +100,7 @@ const Home = () => {
                                 setWarning(null);
                             }
                         }}
+                        onKeyDown={onKeyEnter}
                     />
                     <Button disabled={!isStartedQuiz} variant="outlined" className="home__join-room" onClick={addNewUser}>
                         Почати гру

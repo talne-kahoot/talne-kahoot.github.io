@@ -3,7 +3,7 @@ import {useNavigate} from "react-router-dom";
 
 import Paper from "@mui/material/Paper";
 import Card from "@mui/material/Card";
-import {Button} from "@mui/material";
+import {Button, Zoom} from "@mui/material";
 import Masonry from '@mui/lab/Masonry';
 
 import './index.scss';
@@ -53,47 +53,56 @@ const StageFirst = ({users, changeStage}: Props) => {
     }
     return (
         <>
-            <div className="game__header">
-                <Paper elevation={3} className="game__info-wrapper">
-                    <div>
-                        Приєднатись до гри
-                        <div className="game__url">
-                            {
-                                window.location.origin
-                            }
+            <Zoom in={true} timeout={500}>
+                <div className="game__header">
+                    <Paper elevation={24} className="game__info-wrapper">
+                        <div>
+                            Приєднатись до гри
+                            <div className="game__url">
+                                {
+                                    window.location.origin
+                                }
+                            </div>
                         </div>
+                    </Paper>
+                    {isAdmin ?
+                        <Button variant="outlined" color="success" className="game__start-game" onClick={onStartGame}
+                                disabled={!users.length}>
+                            Розпочати
+                        </Button> : null}
+                </div>
+            </Zoom>
+            <Zoom in={true} timeout={500}>
+                <div className="game__title">
+                    <span>ВІКТОРИНА</span>
+                </div>
+            </Zoom>
+            <Zoom in={true} timeout={500}>
+                <div className="game__body-wrapper">
+                    <div className="game__activity">
+                        <div className="quantity__text">Кі-ть гравців:</div>
+                        <div className="quantity">{users.length > 0 ? users.length : 0}</div>
                     </div>
-                </Paper>
-                {isAdmin ? <Button variant="outlined" color="success" className="game__start-game" onClick={onStartGame}
-                                   disabled={!users.length}>
-                    Розпочати
-                </Button> : null}
-            </div>
-            <div className="game__title">
-                <span>ВІКТОРИНА</span>
-            </div>
-            <div className="game__body-wrapper">
-                <div className="game__activity">
-                    <div className="quantity__text">Кі-ть гравців:</div>
-                    <div className="quantity">{users.length > 0 ? users.length : 0}</div>
+                    <div className="game__players">
+                        <Masonry columns={4} spacing={2}>
+                            {users.map((player, index) => (
+                                <Card key={index} className="game__player">
+                                    {player.name}
+                                </Card>
+                            ))}
+                        </Masonry>
+                    </div>
                 </div>
-                <div className="game__players">
-                    <Masonry columns={4} spacing={2}>
-                        {users.map((player, index) => (
-                            <Card key={index} className="game__player">
-                                {player.name}
-                            </Card>
-                        ))}
-                    </Masonry>
-                </div>
-            </div>
+            </Zoom>
 
-            <div className="game__qr">
-                <img
-                    src='/qr.png'
-                    alt='QR code'
-                />
-            </div>
+            <Zoom in={true} timeout={500}>
+                <div className="game__qr">
+                    <img
+                        src='/qr.png'
+                        alt='QR code'
+                    />
+                </div>
+            </Zoom>
         </>
     );
 };

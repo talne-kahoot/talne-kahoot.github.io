@@ -1,6 +1,6 @@
 import React from 'react';
 
-import PlayArrowIcon from '@mui/icons-material/PlayArrow';
+import HexagonIcon from '@mui/icons-material/Hexagon';
 import {OverridableStringUnion} from "@mui/types";
 import {SvgIconPropsColorOverrides} from "@mui/material/SvgIcon/SvgIcon";
 
@@ -17,9 +17,10 @@ type Props = {
         | 'success'
         | 'warning',
         SvgIconPropsColorOverrides
-    >
+    >,
+    className?: string
 };
 
-export const TriangleCustomIcon = ({color = 'primary', style}: Props) => {
-    return <PlayArrowIcon color={color} style={{...style}} />;
+export const HexagonCustomIcon = ({color = 'primary', style, className = ''}: Props) => {
+    return <HexagonIcon className={className} color={color} style={{...style}} />;
 };

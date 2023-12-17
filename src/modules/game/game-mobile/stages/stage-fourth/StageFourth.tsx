@@ -19,6 +19,16 @@ type Props = {
     currentQuestion: QuestionType | null
 };
 
+const CLASS_NAME = {
+    [QUESTION_TYPE.QUIZ]: 'fourth-stage__quiz',
+    [QUESTION_TYPE.TRUE_OR_FALSE]: 'fourth-stage__true-false',
+    [QUESTION_TYPE.TYPE_ANSWER]: 'fourth-stage__type-answer',
+    [QUESTION_TYPE.SLIDER]: 'fourth-stage__slider',
+    [QUESTION_TYPE.PUZZLE]: 'fourth-stage__puzzle',
+    '': ''
+};
+
+
 const StageFourth = ({currentQuestion}: Props) => {
     const [waitingState, setWaitingState] = useState(true);
     useEffect(() => {
@@ -42,7 +52,7 @@ const StageFourth = ({currentQuestion}: Props) => {
     }, [])
 
 
-    return (<div className="fourth-stage">
+    return (<div className={`fourth-stage ${CLASS_NAME[currentQuestion?.questionType || '']}`}>
         {waitingState ? (
                 <>
                     {currentQuestion?.questionType === QUESTION_TYPE.QUIZ &&
@@ -77,7 +87,7 @@ const StageFourth = ({currentQuestion}: Props) => {
                     }
                 </>
             ) :
-            (<>
+            (<div className="fourth-stage__waiting">
                 <Zoom in={true} timeout={500}>
                     <div className="fourth-stage__font-wrapper">
                         <Typography variant="h6" gutterBottom className="fourth-stage__font">
@@ -86,7 +96,7 @@ const StageFourth = ({currentQuestion}: Props) => {
                         <CircularProgress className="fourth-stage__circular-progress" size={70}/>
                     </div>
                 </Zoom>
-            </>)
+            </div>)
         }
     </div>);
 };

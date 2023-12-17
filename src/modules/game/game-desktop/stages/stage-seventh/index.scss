@@ -107,6 +107,7 @@
     border-color: black;
 
     &:hover {
+      border: 1px solid white;
       background-color: rgba(0, 0, 0, 0.4);
       color: white;
     }

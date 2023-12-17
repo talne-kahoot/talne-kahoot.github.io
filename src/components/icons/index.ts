@@ -1,5 +1,5 @@
 export {StarCustomIcon} from "./Star";
-export {TriangleCustomIcon} from "./Triangle";
+export {HexagonCustomIcon} from "./Hexagon";
 export {SquareCustomIcon} from "./Square";
 export {DotCustomIcon} from "./Dot";
 export {SuperAdminCustomIcon} from "./SuperAdmin";

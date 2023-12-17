@@ -1,4 +1,5 @@
 import React, {useEffect, useRef, useState} from 'react';
+import {Paper, Zoom} from "@mui/material";
 
 import {QuestionType} from "../../../../../components/card/Card.tsx";
 import Countdown from "../../../utils/getScoreForWinner.ts";
@@ -51,37 +52,47 @@ const StageFourth = ({changeStage, currentQuestion}: Props) => {
 
     return (
         <div className="stage-fourth">
-            <div className="stage-fourth__header">
-                {currentQuestion?.title}
-            </div>
-
-            <div className="stage-fourth__body">
-                <div className="stage-fourth__timer">
-                    <span ref={timerRef}>{currentQuestion?.time}</span>
-                    <div>Час</div>
+            <Zoom in={true} timeout={500}>
+                <div className="stage-fourth__header">
+                    <Paper elevation={24} className="stage-fourth__header-paper">
+                        {currentQuestion?.title}
+                    </Paper>
                 </div>
+            </Zoom>
 
-                <div className="stage-fourth__img">
-                    {currentQuestion?.img && <img src={currentQuestion?.img} alt="image"/>}
-                </div>
-
-                <div className="stage-fourth__number-of-question">
-                    <div className="stage-fourth__number-of-question-count">
-                        {answered}
+            <Zoom in={true} timeout={500}>
+                <div className="stage-fourth__body">
+                    <div className="stage-fourth__timer">
+                        <span ref={timerRef}>{currentQuestion?.time}</span>
+                        <div>Час</div>
                     </div>
-                    <div>
-                        Відповіло
+
+                    <div className="stage-fourth__img">
+                        {currentQuestion?.img && <img src={currentQuestion?.img} alt="image"/>}
+                    </div>
+
+                    <div className="stage-fourth__number-of-question">
+                        <div className="stage-fourth__number-of-question-count">
+                            {answered}
+                        </div>
+                        <span>
+                        Відп.
+                    </span>
                     </div>
                 </div>
-            </div>
+            </Zoom>
 
-            <div className="stage-fourth__footer">
-                {currentQuestion?.questionType === QUESTION_TYPE.QUIZ && <StageFourthQuizView currentQuestion={currentQuestion.QUIZ}/>}
-                {currentQuestion?.questionType === QUESTION_TYPE.TRUE_OR_FALSE && <StageFourthTrueFalseView/>}
-                {currentQuestion?.questionType === QUESTION_TYPE.TYPE_ANSWER && <StageFourthTypeAnswerView/>}
-                {currentQuestion?.questionType === QUESTION_TYPE.SLIDER && <StageFourthSliderView currentQuestion={currentQuestion.SLIDER}/>}
-                {currentQuestion?.questionType === QUESTION_TYPE.PUZZLE && <StageFourthPuzzleView/>}
-            </div>
+            <Zoom in={true} timeout={500}>
+                <div className="stage-fourth__footer">
+                    {currentQuestion?.questionType === QUESTION_TYPE.QUIZ &&
+                        <StageFourthQuizView currentQuestion={currentQuestion.QUIZ}/>}
+                    {currentQuestion?.questionType === QUESTION_TYPE.TRUE_OR_FALSE && <StageFourthTrueFalseView/>}
+                    {currentQuestion?.questionType === QUESTION_TYPE.TYPE_ANSWER && <StageFourthTypeAnswerView/>}
+                    {currentQuestion?.questionType === QUESTION_TYPE.SLIDER &&
+                        <StageFourthSliderView currentQuestion={currentQuestion.SLIDER}/>}
+                    {currentQuestion?.questionType === QUESTION_TYPE.PUZZLE && <StageFourthPuzzleView/>}
+                </div>
+            </Zoom>
         </div>
     );
 };

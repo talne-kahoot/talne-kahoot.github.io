@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import {Button, Slider as SliderMaterial, Zoom} from "@mui/material";
+import {Button, Paper, Slider as SliderMaterial, Zoom} from "@mui/material";
 import {onValue, ref} from "firebase/database";
 
 import {QuestionType} from "../../../../../../components/card/Card";
@@ -66,26 +66,27 @@ export const StageFifthSliderView = ({currentQuestion, lastQuestion, onClickNext
 
                 <div className="stage-fourth__img stage-fifth__type-answer">
                     <Zoom in={true} timeout={2000}>
-                        <div className="slider-wrapper">
-                            <SliderMaterial
-                                className="slider slider-disabled"
-                                valueLabelDisplay="on"
-                                value={playersAnswered}
-                                min={+(currentQuestion?.SLIDER?.min || 0)}
-                                max={+(currentQuestion?.SLIDER?.max || 100)}
-                                disabled
-                            />
-                            <SliderMaterial
-                                className="slider slider-active"
-                                valueLabelDisplay="on"
-                                step={1}
-                                defaultValue={[currentQuestion?.SLIDER?.correctVariant || 0]}
-                                min={+(currentQuestion?.SLIDER?.min || 0)}
-                                max={+(currentQuestion?.SLIDER?.max || 100)}
-                                marks
-                            />
-
-                        </div>
+                        <Paper elevation={24} className="stage-fifth__slider-paper">
+                            <div className="slider-wrapper">
+                                <SliderMaterial
+                                    className="slider slider-disabled"
+                                    valueLabelDisplay="on"
+                                    value={playersAnswered}
+                                    min={+(currentQuestion?.SLIDER?.min || 0)}
+                                    max={+(currentQuestion?.SLIDER?.max || 100)}
+                                    disabled
+                                />
+                                <SliderMaterial
+                                    className="slider slider-active"
+                                    valueLabelDisplay="on"
+                                    step={1}
+                                    defaultValue={[currentQuestion?.SLIDER?.correctVariant || 0]}
+                                    min={+(currentQuestion?.SLIDER?.min || 0)}
+                                    max={+(currentQuestion?.SLIDER?.max || 100)}
+                                    marks
+                                />
+                            </div>
+                        </Paper>
                     </Zoom>
                 </div>
             </div>

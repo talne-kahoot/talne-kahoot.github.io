@@ -18,7 +18,6 @@
     display: flex;
     justify-content: center;
     align-content: center;
-    width: 30%;
     margin: 10px;
   }
 
@@ -31,6 +30,18 @@
     margin-top: 20px;
   }
 
+  .stage-fifth__type-answer-paper {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-content: center;
+    flex-wrap: wrap;
+    width: 55%;
+    padding-top: 20px;
+    padding-bottom: 20px;
+    background: rgba(255, 255, 255, 1);
+  }
+
   .stage-fifth__answer_true {
     .MuiInputBase-input {
       font-size: 40px !important;;
@@ -38,9 +49,18 @@
   }
 
   .slider-wrapper {
-    width: 95%;
+    width: 100%;
     position: relative;
   }
+
+  .stage-fifth__slider-paper {
+    width: 90%;
+    height: 40px;
+    padding-left: 20px;
+    padding-right: 20px;
+    padding-top: 50px;
+  }
+
   .slider {
     position: absolute;
     width: 100%;
@@ -90,5 +110,9 @@
     justify-content: center;
     align-content: center;
     text-align: center;
+  }
+
+  .opacity {
+    opacity: 0.5
   }
 }

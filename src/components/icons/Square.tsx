@@ -17,9 +17,10 @@ type Props = {
         | 'success'
         | 'warning',
         SvgIconPropsColorOverrides
-    >
+    >,
+    className?: string
 };
 
-export const SquareCustomIcon = ({color = 'primary', style}: Props) => {
-    return <SquareIcon color={color} style={{...style}} />;
+export const SquareCustomIcon = ({color = 'primary', style, className = ''}: Props) => {
+    return <SquareIcon color={color} className={className} style={{...style}}/>;
 };

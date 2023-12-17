@@ -25,18 +25,33 @@ const HomeHost = () => {
         }, {onlyOnce: true});
     };
 
+    const onKeyEnter = (e: React.KeyboardEvent<HTMLDivElement>) => {
+        if (e.key === 'Enter') {
+            onClick();
+        }
+    }
+
     return (
         <div className="home-host">
             <div className="bg"/>
             <Paper elevation={24} className="home-host__inputs-paper">
                 <div className="home-host__title">Секретний кабінет</div>
-                <TextField className="home-host__login" label="Ім'я" variant="outlined"
-                           onChange={e => setLogin(e.currentTarget.value)} error={!!warningMessage}/>
-                <TextField className="home-host__password" label="Пароль" variant="outlined"
-                           onChange={e => setPassword(e.currentTarget.value)}
-                           error={!!warningMessage}
-                           helperText={warningMessage}
-                           type="password"
+                <TextField
+                    className="home-host__login"
+                    label="Ім'я"
+                    variant="outlined"
+                    onChange={e => setLogin(e.currentTarget.value)} error={!!warningMessage}
+                    onKeyDown={onKeyEnter}
+                />
+                <TextField
+                    className="home-host__password"
+                    label="Пароль"
+                    variant="outlined"
+                    onChange={e => setPassword(e.currentTarget.value)}
+                    error={!!warningMessage}
+                    helperText={warningMessage}
+                    onKeyDown={onKeyEnter}
+                    type="password"
                 />
                 <Button variant="outlined" color="primary" onClick={onClick} className="home-host__log-in">
                     Увійти

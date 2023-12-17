@@ -1,9 +1,8 @@
 import React from 'react';
-import CircleIcon from "@mui/icons-material/PanoramaFishEye";
-import SquareIcon from "@mui/icons-material/CropSquare";
 
 import {onValue, ref, set} from "firebase/database";
 
+import {DotCustomIcon, SquareCustomIcon} from "../../../../../../components/icons";
 import {QuestionType} from "../../../../../../components/card/Card";
 import {db} from "../../../../../../firebase/firebase";
 
@@ -55,10 +54,10 @@ export const StageFourthTrueFalseView = ({currentQuestion, setWaitingState}: Pro
     return (
         <>
             <div onClick={() => chooseVariant('A')} className="fourth-stage__icon square-icon">
-                <SquareIcon className="icon"/>
+                <SquareCustomIcon className="icon"/>
             </div>
             <div onClick={() => chooseVariant('B')} className="fourth-stage__icon circle-icon">
-                <CircleIcon className="icon"/>
+                <DotCustomIcon className="icon"/>
             </div>
         </>
     );
