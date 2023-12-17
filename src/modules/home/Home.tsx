@@ -101,6 +101,7 @@ const Home = () => {
                             }
                         }}
                         onKeyDown={onKeyEnter}
+                        inputProps={{ maxLength: 15 }}
                     />
                     <Button disabled={!isStartedQuiz} variant="outlined" className="home__join-room" onClick={addNewUser}>
                         Почати гру
