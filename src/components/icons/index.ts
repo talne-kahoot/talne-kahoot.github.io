@@ -6,3 +6,4 @@ export {SuperAdminCustomIcon} from "./SuperAdmin";
 export {RatingCustomIcon} from "./Rating";
 export {FullScreenCustomIcon} from "./FullScreen";
 export {FullScreenExitCustomIcon} from "./FullScreenExit";
+export {PeopleCustomIcon} from "./PeopleCustomIcon";

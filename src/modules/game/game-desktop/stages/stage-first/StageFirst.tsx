@@ -4,11 +4,12 @@ import {useNavigate} from "react-router-dom";
 import Paper from "@mui/material/Paper";
 import Card from "@mui/material/Card";
 import {Button, Zoom} from "@mui/material";
-import Masonry from '@mui/lab/Masonry';
 
-import './index.scss';
+import {PeopleCustomIcon} from "../../../../../components/icons";
 import {db} from "../../../../../firebase/firebase.ts";
 import {onValue, ref, set} from "firebase/database";
+
+import './index.scss';
 
 type User = {
     name: string,
@@ -79,22 +80,20 @@ const StageFirst = ({users, changeStage}: Props) => {
             </Zoom>
             <Zoom in={true} timeout={500}>
                 <div className="game__body-wrapper">
-                    <div className="game__activity">
-                        <div className="quantity__text">Кі-ть гравців:</div>
-                        <div className="quantity">{users.length > 0 ? users.length : 0}</div>
-                    </div>
                     <div className="game__players">
-                        <Masonry columns={4} spacing={2}>
                             {users.map((player, index) => (
                                 <Card key={index} className="game__player">
                                     {player.name}
                                 </Card>
                             ))}
-                        </Masonry>
                     </div>
                 </div>
             </Zoom>
 
+            <div className="game__activity">
+                <PeopleCustomIcon className="game__activity-icon"/>
+                <div className="quantity">{users.length > 0 ? users.length : 0}</div>
+            </div>
             <Zoom in={true} timeout={500}>
                 <div className="game__qr">
                     <img

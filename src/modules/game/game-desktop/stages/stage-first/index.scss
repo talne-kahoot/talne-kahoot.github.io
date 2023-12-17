@@ -34,18 +34,29 @@
   }
 
   &__activity {
+    position: fixed;
+    bottom: 30px;
+    left: 50px;
     display: flex;
+    justify-content: center;
     width: 250px;
     margin-top: 15px;
     font-size: 50px;
-    align-items: start;
+    align-items: center;
 
-    .quantity__text {
-        margin-right: 20px
+    .game__activity-icon {
+      color: white;
+      font-size: 80px;
+      padding: 10px;
     }
+
     .quantity {
-      font-size: 100px;
-      margin-top: 5px;
+      color: white;
+      font-size: 80px;
+      padding: 10px;
+
+      margin-left: 20px;
+      margin-bottom: 10px;
     }
   }
 
