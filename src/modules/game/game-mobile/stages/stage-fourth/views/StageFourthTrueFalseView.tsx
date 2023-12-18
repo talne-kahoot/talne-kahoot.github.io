@@ -5,6 +5,8 @@ import {onValue, ref, set} from "firebase/database";
 import {DotCustomIcon, SquareCustomIcon} from "../../../../../../components/icons";
 import {QuestionType} from "../../../../../../components/card/Card";
 import {db} from "../../../../../../firebase/firebase";
+import {getCorrectScore} from "../utils";
+import {QUESTION_TYPE} from "../../../../../../constants";
 
 type Props = {
     setWaitingState: (state: boolean) => void,
@@ -43,10 +45,15 @@ export const StageFourthTrueFalseView = ({currentQuestion, setWaitingState}: Pro
         if (time && isCorrectedAnswer) {
             const refMyScore = ref(db, `/game/players/${name}/score`);
             onValue(refMyScore, (snapshot) => {
-                const data = snapshot.val();
-                const winValue = Math.floor((+time / 100 ) * (10 * streak)) + (+time);
-                sessionStorage.setItem("lastScore", `${winValue}`);
-                set(refMyScore, +data + winValue);
+                const prevScore = snapshot.val();
+                const score = getCorrectScore({
+                    type: QUESTION_TYPE.TRUE_OR_FALSE,
+                    questionTime: currentQuestion?.time,
+                    answerTime: +time,
+                    streak
+                });
+                sessionStorage.setItem("lastScore", `${score}`);
+                set(refMyScore, +prevScore + score);
             }, {onlyOnce: true});
         }
     };

@@ -66,14 +66,19 @@ const StageFifth = ({currentQuestion}: Props) => {
                     <Zoom in={true} timeout={500}>
                         <div className="correct-answer__wrapper">
                             <Typography variant="h3" gutterBottom className="correct-answer__title">
-                                Вірно!
+                                {streak? 'Вірно!': 'Ну.. норм!'}
                                 <br/>
                                 (+ {lastScore})
                             </Typography>
                             <CheckIcon className="correct-answer__icon" />
 
                             <Typography variant="h3" gutterBottom className="correct-answer__streak">
-                                Послідовність перемог <span>{streak}</span>
+                                {streak ? <>Послідовність перемог <span>{streak}</span></> :
+                                    <>
+                                        Відповідь не влучна :(
+                                        <br/>
+                                        Послідовність втрачено
+                                    </>}
                             </Typography>
                         </div>
 

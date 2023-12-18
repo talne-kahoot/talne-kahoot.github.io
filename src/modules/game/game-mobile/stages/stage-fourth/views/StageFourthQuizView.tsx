@@ -3,7 +3,9 @@ import {onValue, ref, set} from "firebase/database";
 
 import {DotCustomIcon, HexagonCustomIcon, SquareCustomIcon, StarCustomIcon} from "../../../../../../components/icons";
 import {QuestionType} from "../../../../../../components/card/Card";
+import {QUESTION_TYPE} from "../../../../../../constants";
 import {db} from "../../../../../../firebase/firebase";
+import {getCorrectScore} from "../utils";
 
 type Props = {
     setWaitingState: (state: boolean) => void,
@@ -41,10 +43,16 @@ export const StageFourthQuizView = ({currentQuestion, setWaitingState}: Props) =
         if (time && isCorrectedAnswer) {
             const refMyScore = ref(db, `/game/players/${name}/score`);
             onValue(refMyScore, (snapshot) => {
-                const data = snapshot.val();
-                const winValue = Math.floor((+time / 100 ) * (10 * streak)) + (+time);
-                sessionStorage.setItem("lastScore", `${winValue}`);
-                set(refMyScore, +data + winValue);
+                const prevScore = snapshot.val();
+                const score = getCorrectScore({
+                    type: QUESTION_TYPE.QUIZ,
+                    questionTime: currentQuestion?.time,
+                    answerTime: +time,
+                    streak
+                });
+
+                sessionStorage.setItem("lastScore", `${score}`);
+                set(refMyScore, +prevScore + score);
             }, {onlyOnce: true});
         }
     };

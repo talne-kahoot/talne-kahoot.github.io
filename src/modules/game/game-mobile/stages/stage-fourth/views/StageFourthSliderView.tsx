@@ -1,11 +1,13 @@
 import React, {useState} from 'react';
 
+import {Slider as SliderMaterial} from "@mui/material";
 import {onValue, ref, set} from "firebase/database";
+import Button from "@mui/material/Button";
 
 import {QuestionType} from "../../../../../../components/card/Card";
+import {QUESTION_TYPE} from "../../../../../../constants";
 import {db} from "../../../../../../firebase/firebase";
-import {Slider as SliderMaterial} from "@mui/material";
-import Button from "@mui/material/Button";
+import {getCorrectScore} from "../utils";
 
 import './index.scss';
 
@@ -23,13 +25,13 @@ export const StageFourthSliderView = ({currentQuestion, setWaitingState}: Props)
         const time = sessionStorage.getItem("time");
         const name = sessionStorage.getItem("name");
 
-        const isCorrectedAnswer = currentQuestion?.SLIDER?.correctVariant === variant;
+        const shouldIncreaseStreak = currentQuestion?.SLIDER?.correctVariant === variant;
         let streak = 0;
         const winStreakRef = ref(db, `/game/players/${name}/winStreak`);
         onValue(winStreakRef, (snapshot) => {
             const winStreak = snapshot.val();
 
-            if (isCorrectedAnswer) {
+            if (shouldIncreaseStreak) {
                 streak = winStreak + 1;
                 set(winStreakRef, winStreak + 1);
             } else {
@@ -44,13 +46,30 @@ export const StageFourthSliderView = ({currentQuestion, setWaitingState}: Props)
         const lastAnswerQuestionIdRef = ref(db, `/game/players/${name}/lastAnswer/questionId`);
         set(lastAnswerQuestionIdRef, currentQuestion?.id);
 
-        if (time && isCorrectedAnswer) {
+        let isValueInRange;
+        if (currentQuestion?.SLIDER?.correctVariant) {
+            const correctVariant = +(currentQuestion?.SLIDER?.correctVariant as number);
+            isValueInRange = correctVariant - 3 <= (+variant) && (+variant) <= correctVariant + 3;
+        }
+
+
+        if (time && isValueInRange) {
             const refMyScore = ref(db, `/game/players/${name}/score`);
             onValue(refMyScore, (snapshot) => {
-                const data = snapshot.val();
-                const winValue = Math.floor((+time / 100) * (10 * streak)) + (+time);
-                sessionStorage.setItem("lastScore", `${winValue}`);
-                set(refMyScore, +data + winValue);
+                const prevScore = snapshot.val();
+                const score = getCorrectScore({
+                    type: QUESTION_TYPE.SLIDER,
+                    questionTime: currentQuestion?.time,
+                    answerTime: +time,
+                    streak
+                });
+
+                const correctVariant = +(currentQuestion?.SLIDER?.correctVariant as number);
+                const coefficient = Math.abs(correctVariant - (+variant)) + 1;
+
+                const scoreWithCoef = Math.floor(score / coefficient);
+                sessionStorage.setItem("lastScore", `${scoreWithCoef}`);
+                set(refMyScore, +prevScore + scoreWithCoef);
             }, {onlyOnce: true});
         }
     };

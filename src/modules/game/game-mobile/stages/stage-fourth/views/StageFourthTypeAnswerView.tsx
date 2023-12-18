@@ -1,11 +1,13 @@
 import React, {useState} from 'react';
 
 import {onValue, ref, set} from "firebase/database";
-
-import {QuestionType} from "../../../../../../components/card/Card";
-import {db} from "../../../../../../firebase/firebase";
 import {TextField, Zoom} from "@mui/material";
 import Button from "@mui/material/Button";
+
+import {QuestionType} from "../../../../../../components/card/Card";
+import {QUESTION_TYPE} from '../../../../../../constants';
+import {db} from "../../../../../../firebase/firebase";
+import {getCorrectScore} from '../utils';
 
 import './index.scss';
 
@@ -48,10 +50,16 @@ export const StageFourthTypeAnswerView = ({currentQuestion, setWaitingState}: Pr
         if (time && isCorrectedAnswer) {
             const refMyScore = ref(db, `/game/players/${name}/score`);
             onValue(refMyScore, (snapshot) => {
-                const data = snapshot.val();
-                const winValue = Math.floor((+time / 100) * (10 * streak)) + (+time);
-                sessionStorage.setItem("lastScore", `${winValue}`);
-                set(refMyScore, +data + winValue);
+                const prevScore = snapshot.val();
+                const score = getCorrectScore({
+                    type: QUESTION_TYPE.TYPE_ANSWER,
+                    questionTime: currentQuestion?.time,
+                    answerTime: +time,
+                    streak
+                });
+
+                sessionStorage.setItem("lastScore", `${score}`);
+                set(refMyScore, +prevScore + score);
             }, {onlyOnce: true});
         }
     };

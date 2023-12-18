@@ -18,13 +18,20 @@ export const getCondition = (lastAnswer: Answer | null, currentQuestion: Questio
             return isCurrentQuestion && equalAnswers;
         }
         case QUESTION_TYPE.SLIDER: {
-            return isCurrentQuestion && lastAnswer?.answer === currentQuestion?.SLIDER?.correctVariant;
+            const currentVariant = +(currentQuestion?.SLIDER?.correctVariant as number)
+            let answer = -Infinity;
+
+            if (lastAnswer?.answer && typeof +lastAnswer?.answer === 'number') {
+               answer = +lastAnswer?.answer;
+            }
+
+            const inRange = currentVariant - 3 <= answer && answer <= currentVariant + 3;
+            return isCurrentQuestion && inRange;
         }
         case QUESTION_TYPE.PUZZLE: {
             let countOfCorrectAnswers = 0;
-            const lastAnswerPuzzle = lastAnswer?.answer as PuzzleType[];
-            const currentQuestionPuzzle = currentQuestion?.PUZZLE;
-
+            const lastAnswerPuzzle = [...lastAnswer?.answer as PuzzleType[]].sort((a, b) => a.id - b.id);
+            const currentQuestionPuzzle = [...currentQuestion?.PUZZLE || []].sort((a, b) => a.id - b.id);
 
             lastAnswerPuzzle?.length && lastAnswerPuzzle[0] && [...lastAnswerPuzzle].forEach((item, index) => {
                 if (item?.id === currentQuestionPuzzle?.[index]?.id) {

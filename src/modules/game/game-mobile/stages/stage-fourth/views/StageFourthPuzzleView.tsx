@@ -9,6 +9,8 @@ import Button from "@mui/material/Button";
 import './index.scss';
 import {MobilePuzzleComponent} from "./MobilePuzzleComponent";
 import {PuzzleType} from "../../../../../../types";
+import {getCorrectScore} from "../utils";
+import {QUESTION_TYPE} from "../../../../../../constants";
 
 type Props = {
     setWaitingState: (state: boolean) => void,
@@ -28,7 +30,7 @@ export const StageFourthPuzzleView = ({currentQuestion, setWaitingState}: Props)
         const time = sessionStorage.getItem("time");
         const name = sessionStorage.getItem("name");
 
-        const correctVariant = currentQuestion?.PUZZLE;
+        const correctVariant = [...currentQuestion?.PUZZLE || []].sort((a, b) => a.id - b.id );
         let countOfCorrectAnswers = 0;
         variant.forEach((item, index) => {
             if (item?.id === correctVariant?.[index]?.id) {
@@ -36,14 +38,12 @@ export const StageFourthPuzzleView = ({currentQuestion, setWaitingState}: Props)
             }
         })
 
-        console.log(countOfCorrectAnswers);
-
         let streak = 0;
         const winStreakRef = ref(db, `/game/players/${name}/winStreak`);
         onValue(winStreakRef, (snapshot) => {
             const winStreak = snapshot.val();
 
-            if (countOfCorrectAnswers > 0) {
+            if (countOfCorrectAnswers === correctVariant.length) {
                 streak = winStreak + 1;
                 set(winStreakRef, winStreak + 1);
             } else {
@@ -61,13 +61,18 @@ export const StageFourthPuzzleView = ({currentQuestion, setWaitingState}: Props)
         if (time && countOfCorrectAnswers > 0) {
             const refMyScore = ref(db, `/game/players/${name}/score`);
             onValue(refMyScore, (snapshot) => {
-                const data = snapshot.val();
-                const valueForStreak = (+time / 100) * (10 * streak);
-                const allScore = Math.floor(valueForStreak + (+time));
+                const prevScore = snapshot.val();
+                const score = getCorrectScore({
+                    type: QUESTION_TYPE.PUZZLE,
+                    questionTime: currentQuestion?.time,
+                    answerTime: +time,
+                    streak
+                });
 
-                const winValue = allScore * countOfCorrectAnswers;
-                sessionStorage.setItem("lastScore", `${winValue}`);
-                set(refMyScore, +data + winValue);
+                const quantityOfQuestions = currentQuestion?.PUZZLE?.length || 1;
+                const scoreByCorrectAnswers = Math.floor((score / quantityOfQuestions) * countOfCorrectAnswers);
+                sessionStorage.setItem("lastScore", `${scoreByCorrectAnswers}`);
+                set(refMyScore, +prevScore + scoreByCorrectAnswers);
             }, {onlyOnce: true});
         }
     };
