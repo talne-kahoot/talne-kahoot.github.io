@@ -6,9 +6,15 @@
   &__header {
     height: 250px;
     display: flex;
-    justify-content: center;
+    justify-content: space-between;
     align-items: center;
     border-bottom: 1px solid gray;
+
+    .game__qr-img {
+      margin: 5px;
+      height: 240px;
+      width: 240px;
+    }
   }
 
   &__title {
@@ -35,12 +41,11 @@
 
   &__activity {
     position: fixed;
-    bottom: 30px;
+    bottom: 10px;
     left: 50px;
     display: flex;
     justify-content: center;
     width: 250px;
-    margin-top: 15px;
     font-size: 50px;
     align-items: center;
 
@@ -56,7 +61,6 @@
       padding: 10px;
 
       margin-left: 20px;
-      margin-bottom: 10px;
     }
   }
 
@@ -87,10 +91,18 @@
     display: flex;
     align-items: flex-start;
     flex-wrap: wrap;
+
+    svg {
+      width: 50px;
+      height: 50px;
+    }
   }
 
   .game__player {
     width: fit-content;
+    display: flex;
+    align-content: center;
+    justify-content: center;
     margin: 10px;
     padding: 10px;
     font-size: 20px;
@@ -98,6 +110,14 @@
     overflow: hidden;
     text-overflow: ellipsis;
     max-width: 250px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 1);
+
+
+    .game__player-name {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
   }
 
   .game__info-wrapper {
@@ -111,6 +131,7 @@
     display: flex;
     justify-content: space-around;
     align-items: center;
+    margin-right: 240px;
   }
 
   .game__url {
@@ -126,13 +147,15 @@
     display: flex;
     align-items: end;
     justify-content: flex-end;
-    margin-bottom: 40px;
-    margin-right: 40px;
+    margin-bottom: 20px;
+    margin-right: 120px;
 
-    img {
-      width: 40vh;
-      height: 40vh;
+    .game__qr-action-button {
+      cursor: pointer;
+      font-size: 70px;
+      color: white;
+      transform: scale(1);
+      animation: pulse 2s infinite;
     }
   }
-
 }

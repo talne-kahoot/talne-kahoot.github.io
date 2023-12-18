@@ -7,3 +7,8 @@ export {RatingCustomIcon} from "./Rating";
 export {FullScreenCustomIcon} from "./FullScreen";
 export {FullScreenExitCustomIcon} from "./FullScreenExit";
 export {PeopleCustomIcon} from "./PeopleCustomIcon";
+export {QrCustomIcon} from "./QRCustomIcon";
+export {EditCustomIcon} from "./EditCustomIcon";
+export {RefreshCustomIcon} from "./Refresh";
+export {SaveCustomIcon} from "./Save";
+export {CloseCustomIcon} from "./Close";

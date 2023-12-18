@@ -1,0 +1,1 @@
+export {QRComponent} from './QRComponent';

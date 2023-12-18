@@ -1,0 +1,15 @@
+.qr-code-full-screen {
+  outline: none;
+  z-index: 2;
+}
+
+.qr-code-full-screen__modal {
+  display: flex;
+  align-content: center;
+  justify-content: center;
+  flex-wrap: wrap;
+
+  .MuiBackdrop-root {
+    z-index: 2;
+  }
+}

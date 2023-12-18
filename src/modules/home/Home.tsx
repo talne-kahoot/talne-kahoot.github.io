@@ -7,6 +7,7 @@ import {RatingCustomIcon, SuperAdminCustomIcon} from "../../components/icons";
 import {db} from "../../firebase/firebase.ts";
 
 import './index.scss';
+import {getRandomAvatarParams} from "../../components/avatar /utils";
 
 const WARNING_MESSAGE = {
     req_name: 'Name is required! Please enter name.',
@@ -48,9 +49,11 @@ const Home = () => {
                 const usersRef = ref(db, '/users/' + name);
                 onValue(usersRef, (snapshot) => {
                     const userName = snapshot.val();
+                    const newAvatar = getRandomAvatarParams();
                     if (!userName) {
                         set(usersRef, {
                             name,
+                            avatarSettings: newAvatar,
                             totalScore: "0"
                         });
                     }
@@ -58,6 +61,7 @@ const Home = () => {
                     set(gameRef, {
                         name,
                         score: 0,
+                        avatarSettings: !userName || !userName?.avatarSettings ? newAvatar : userName.avatarSettings,
                         winStreak: 0,
                         lastAnswer: {
                             questionId: '',

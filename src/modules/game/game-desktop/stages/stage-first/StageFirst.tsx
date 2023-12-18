@@ -1,20 +1,19 @@
 import React, {useEffect, useState} from 'react';
 import {useNavigate} from "react-router-dom";
 
+import {onValue, ref, set} from "firebase/database";
+import {Button, Zoom} from "@mui/material";
 import Paper from "@mui/material/Paper";
 import Card from "@mui/material/Card";
-import {Button, Zoom} from "@mui/material";
 
+import UserAvatar from "../../../../../components/avatar /Avatar";
 import {PeopleCustomIcon} from "../../../../../components/icons";
+import {QRComponent} from "../../../../../components/qr";
 import {db} from "../../../../../firebase/firebase.ts";
-import {onValue, ref, set} from "firebase/database";
+import {User} from "../../../types";
 
 import './index.scss';
 
-type User = {
-    name: string,
-    score: number
-};
 
 type Props = {
     users: User[],
@@ -56,6 +55,13 @@ const StageFirst = ({users, changeStage}: Props) => {
         <>
             <Zoom in={true} timeout={500}>
                 <div className="game__header">
+                    <Zoom in={true} timeout={500}>
+                        <img
+                            className="game__qr-img"
+                            src='/qr.png'
+                            alt='QR code'
+                        />
+                    </Zoom>
                     <Paper elevation={24} className="game__info-wrapper">
                         <div>
                             Приєднатись до гри
@@ -66,9 +72,10 @@ const StageFirst = ({users, changeStage}: Props) => {
                             </div>
                         </div>
                     </Paper>
+                    <div/>
                     {isAdmin ?
                         <Button variant="outlined" color="success" className="game__start-game" onClick={onStartGame}
-                                disabled={!users.length}>
+                                disabled={!users?.length}>
                             Розпочати
                         </Button> : null}
                 </div>
@@ -83,7 +90,8 @@ const StageFirst = ({users, changeStage}: Props) => {
                     <div className="game__players">
                             {users.map((player, index) => (
                                 <Card key={index} className="game__player">
-                                    {player.name}
+                                    <UserAvatar params={player.avatarSettings} />
+                                    <div className="game__player-name">{player.name}</div>
                                 </Card>
                             ))}
                     </div>
@@ -94,14 +102,9 @@ const StageFirst = ({users, changeStage}: Props) => {
                 <PeopleCustomIcon className="game__activity-icon"/>
                 <div className="quantity">{users.length > 0 ? users.length : 0}</div>
             </div>
-            <Zoom in={true} timeout={500}>
-                <div className="game__qr">
-                    <img
-                        src='/qr.png'
-                        alt='QR code'
-                    />
-                </div>
-            </Zoom>
+            <div className="game__qr">
+                <QRComponent />
+            </div>
         </>
     );
 };

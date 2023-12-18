@@ -1,17 +1,22 @@
 import React, {useEffect, useState} from 'react';
 import {onChildChanged, onValue, ref} from "firebase/database";
-import {db} from "../../../firebase/firebase.ts";
-import './index.scss';
-import {STAGE} from "../constants.ts";
+
 import {StageFifth, StageFirst, StageSecond, StageSeventh,StageFourth, StageSixth, StageThird} from "./stages";
 import {QuestionType} from "../../../components/card/Card.tsx";
+import {db} from "../../../firebase/firebase.ts";
+import {STAGE} from "../constants.ts";
+import {User} from "../types";
+
+import './index.scss';
 
 type Props = {
+    users: User[],
     stage: string,
     currentQuestion: QuestionType | null
 }
-const GameMobile = ({stage, currentQuestion}: Props) => {
+const GameMobile = ({users, stage, currentQuestion}: Props) => {
     const [startedGame, setStartedGame] = useState(true);
+    const [currentUser, setCurrentUser] = useState<User | null>(null);
 
     useEffect(() => {
         onValue(ref(db, '/game/startedGame'), (snapshot) => {
@@ -21,6 +26,15 @@ const GameMobile = ({stage, currentQuestion}: Props) => {
             }
         });
     }, []);
+
+    useEffect(() => {
+        const userName = sessionStorage.getItem("name");
+        users.forEach((user) => {
+            if (user.name === userName) {
+                setCurrentUser(user);
+            }
+        });
+    }, [users]);
 
     const startedGameRef = ref(db, '/game');
     onChildChanged(startedGameRef, (snapshot) => {
@@ -32,7 +46,7 @@ const GameMobile = ({stage, currentQuestion}: Props) => {
 
     return (
         <div className="mobile-wrapper-game">
-            {stage === STAGE.START && <StageFirst/>}
+            {stage === STAGE.START && <StageFirst currentUser={currentUser}/>}
             {stage === STAGE.PREVIEW_QUIZ && <StageSecond/>}
             {stage === STAGE.PREVIEW_QUESTION && <StageThird currentQuestion={currentQuestion}/>}
             {stage === STAGE.QUESTION_AND_ANSWER && <StageFourth currentQuestion={currentQuestion} />}

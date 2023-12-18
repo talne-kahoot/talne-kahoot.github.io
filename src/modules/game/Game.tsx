@@ -2,7 +2,7 @@ import React, {useEffect, useState} from 'react';
 import {isMobile} from 'react-device-detect';
 import {useNavigate} from "react-router-dom";
 
-import {onChildAdded, onChildRemoved, onValue, ref, set} from "firebase/database";
+import {onChildAdded, onChildChanged, onChildRemoved, onValue, ref, set} from "firebase/database";
 import {db} from "../../firebase/firebase.ts";
 import {GameMobile} from "./game-mobile";
 
@@ -52,20 +52,27 @@ const Game = () => {
         }
 
         const gamePlayersRef = ref(db, '/game/players/');
-        if (!isMobile) {
-            onChildAdded(gamePlayersRef, (snapshot) => {
-                const user = snapshot.val();
-                const hasThisPlayer = users.some(el => (el.name === user.name));
-                if (!hasThisPlayer) {
-                    setUsers(prevState => ([...new Set([...prevState, user])]));
-                }
-            });
+        onChildAdded(gamePlayersRef, (snapshot) => {
+            const user = snapshot.val();
+            const hasThisPlayer = users.some(el => (el.name === user.name));
+            if (!hasThisPlayer) {
+                setUsers(prevState => ([...new Set([...prevState, user])]));
+            }
+        });
 
-            onChildRemoved(gamePlayersRef, (snapshot) => {
-                const user = snapshot.val();
-                setUsers(prevState => (prevState.filter(el => el.name !== user.name)));
-            });
-        }
+        onChildChanged(gamePlayersRef, (snapshot) => {
+            const user = snapshot.val();
+            if (user) {
+                setUsers(prevState => {
+                    return prevState.map((el) => el.name === user.name ? user : el)
+                });
+            }
+        })
+
+        onChildRemoved(gamePlayersRef, (snapshot) => {
+            const user = snapshot.val();
+            setUsers(prevState => (prevState.filter(el => el.name !== user.name)));
+        });
     }, []);
 
     useEffect(() => {
@@ -128,7 +135,11 @@ const Game = () => {
         <div className="bg"/>
         {
             isMobile ?
-                <GameMobile stage={STAGES[currentStage || 0]} currentQuestion={currentQuestion}/> :
+                <GameMobile
+                    users={users}
+                    stage={STAGES[currentStage || 0]}
+                    currentQuestion={currentQuestion}
+                /> :
                 <GameDesktop
                     users={users}
                     lastQuestion={questions?.[questions.length - 1]}
