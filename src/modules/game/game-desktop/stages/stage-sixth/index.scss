@@ -28,19 +28,33 @@
 
   .stage-sixth__score-result {
     display: flex;
-    justify-content: space-between;
     margin: 10px;
     padding: 12px;
     padding-right: 30px;
-    padding-left: 30px;
-    width: 40%;
+    width: 50%;
     font-size: 35px;
   }
 
   .name {
-    max-width: 80%;
+    display: flex;
+    align-content: center;
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
+    flex-grow: 1;
+
+    svg {
+      width: 50px;
+      height: 50px;
+    }
+
+    .divider {
+      margin-right: 10px;
+      margin-left: 10px;
+    }
+  }
+
+  .score {
+    max-width: 20%;
   }
 }

@@ -26,7 +26,7 @@ body .full-screen-icon {
     transform: scale(1);
     animation: pulse 2s infinite;
 
-    z-index: 2;
+    z-index: 999;
 }
 
 .opacity_0_1 {

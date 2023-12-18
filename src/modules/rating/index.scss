@@ -34,7 +34,8 @@
     align-items: center;
 
     @media (max-width: 768px) {
-      width: 70%;
+      width: 81%;
+      display: flex;
     }
   }
 
@@ -42,12 +43,20 @@
     background-color: white;
     width: 100%;
     margin: 10px;
-    padding: 15px;
     display: flex;
     justify-content: space-between;
-    padding-right: 40px;
-    padding-left: 40px;
+    padding: 15px 25px 15px 15px;
     font-size: 30px;
+    align-items: center;
+    height: 100%;
+    flex-wrap: wrap;
+
+    @media (max-width: 768px) {
+      font-size: 14px;
+      align-items: center;
+      padding: 5px 15px 5px 5px;
+      margin: 5px;
+    }
   }
 
   .gold {
@@ -57,15 +66,15 @@
 
   .gold::after {
     position: absolute;
-    left: -5px;
-    top: 15px;
+    right: -25px;
+    top: -15px;
     content: '';
     background: url('../../../public/first.PNG') no-repeat;
 
     background-size: contain;
     display: inline-block;
-    width: 50px;
-    height: 50px;
+    width: 55px;
+    height: 55px;
 
   }
 
@@ -76,15 +85,15 @@
 
   .silver::after {
     position: absolute;
-    left: -5px;
-    top: 15px;
+    right: -25px;
+    top: -15px;
     content: '';
     background: url('../../../public/second.PNG') no-repeat;
 
     background-size: contain;
     display: inline-block;
-    width: 50px;
-    height: 50px;
+    width: 55px;
+    height: 55px;
 
   }
 
@@ -95,15 +104,15 @@
 
   .bronze::after {
     position: absolute;
-    left: -5px;
-    top: 15px;
+    right: -25px;
+    top: -15px;
     content: '';
     background: url('../../../public/third.PNG') no-repeat;
 
     background-size: contain;
     display: inline-block;
-    width: 50px;
-    height: 50px;
+    width: 55px;
+    height: 55px;
   }
 
 
@@ -134,11 +143,35 @@
     }
   }
 
-  .name {
-    text-overflow: ellipsis;
+  .name__wrapper {
+    display: flex;
+    align-items: center;
+    flex-wrap: nowrap;
     max-width: 80%;
-    overflow: hidden;
-    white-space: nowrap;
-  }
 
+    svg {
+      width: 50px;
+      height: 50px;
+    }
+
+    @media (max-width: 768px) {
+      .name__text {
+        overflow: hidden;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+        max-width: 100%;
+        flex-wrap: nowrap;
+      }
+
+      svg {
+        width: 50px;
+        height: 50px;
+      }
+    }
+
+    .divider {
+      margin-right: 15px;
+      margin-left: 5px;
+    }
+  }
 }

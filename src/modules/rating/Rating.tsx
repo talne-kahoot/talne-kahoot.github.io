@@ -1,17 +1,23 @@
 import React, {useEffect, useState} from 'react';
-import {onValue, ref} from "firebase/database";
-import {db} from "../../firebase/firebase.ts";
+import {useNavigate} from "react-router-dom";
 import Typography from "@mui/material/Typography";
+import {onValue, ref} from "firebase/database";
+import {Button, Divider} from "@mui/material";
+import Paper from "@mui/material/Paper";
+
+import UserAvatar from "../../components/avatar /Avatar";
+import {db} from "../../firebase/firebase.ts";
 
 import './index.scss';
-import Paper from "@mui/material/Paper";
-import {Button} from "@mui/material";
-import {useNavigate} from "react-router-dom";
+import {AvatarProps} from "@bigheads/core";
 
 type User = {
     name: string,
+    avatarSettings?: AvatarProps,
     totalScore: number
 }
+
+
 const Rating = () => {
     const navigate = useNavigate();
     const [users, setUsers] = useState<User[]>([]);
@@ -64,9 +70,15 @@ const Rating = () => {
                 Рейтинг
             </Typography>
             <div className="rating__users">
-                {users && users.map(({name, totalScore}, index) => (
+                {users && users.map(({name, avatarSettings, totalScore}, index) => (
                     <Paper elevation={3} key={index} className={`rating__user ${getRatingClass(index)}`}>
-                        <div className="name">{name}</div>
+                        <div className="name__wrapper">
+                            <UserAvatar params={avatarSettings} />
+                            <Divider orientation="vertical" className="divider" variant="fullWidth" flexItem/>
+                            <div className="name__text">
+                                {name}
+                            </div>
+                        </div>
                         <div className="total-score">{totalScore}</div>
                     </Paper>
 

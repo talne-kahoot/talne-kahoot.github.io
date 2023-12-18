@@ -1,11 +1,12 @@
 import React, {useEffect, useState} from 'react';
-import {Button, Zoom} from "@mui/material";
+import {Button, Divider, Zoom} from "@mui/material";
 
 import './index.scss';
 import Paper from "@mui/material/Paper";
 import {onValue, ref} from "firebase/database";
 import {db} from "../../../../../firebase/firebase.ts";
 import {User} from "../../../types.ts";
+import UserAvatar from "../../../../../components/avatar /Avatar";
 
 type Props = {
     changeStage: () => void
@@ -46,8 +47,12 @@ const StageSixth = ({changeStage}: Props) => {
                             {index <= 9 ?
                                 <Zoom in={true} timeout={1500 + 400 * index}>
                                     <Paper elevation={3} key={index} className="stage-sixth__score-result">
-                                        <div className="name">{player.name}</div>
-                                        <div>{player.score}</div>
+                                        <div className="name">
+                                            <UserAvatar params={player.avatarSettings} />
+                                            <Divider orientation="vertical" className="divider" variant="fullWidth" flexItem/>
+                                            {player.name}
+                                        </div>
+                                        <div className="score">{player.score}</div>
                                     </Paper>
                                 </Zoom> : null
                             }
