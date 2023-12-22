@@ -25,7 +25,7 @@ const StageSixth = () => {
             <Zoom in={true} timeout={500}>
                 <div className="sixth-stage__score-wrapper">
                     <Typography variant="h3" gutterBottom className="sixth-stage__score">
-                        Your score:
+                        Твої бали:
                         <div>{score}</div>
                     </Typography>
                 </div>
