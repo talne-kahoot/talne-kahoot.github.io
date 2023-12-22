@@ -1,5 +1,7 @@
 import {QUESTION_TYPE} from "../../../../../../constants";
 import {SCORE} from "../constants";
+import {ref, set} from "firebase/database";
+import {db} from "../../../../../../firebase/firebase";
 
 type Props = {
     type: QUESTION_TYPE,
@@ -16,7 +18,8 @@ export const getCorrectScore = ({type, questionTime = 1, answerTime = 1, streak 
     // every streak is 10% to score;
     const valueByStreak = (score / 100) * (10 * streak);
 
-    console.log({
+    const gameRef = ref(db, '/game/debugging');
+    set(gameRef, {
         scoreByType: SCORE[type],
         defaultScore: answerTime * 100,
         score,
