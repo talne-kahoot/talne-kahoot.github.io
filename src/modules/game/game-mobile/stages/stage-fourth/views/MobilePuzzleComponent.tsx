@@ -59,6 +59,7 @@ export const MobilePuzzleComponent = ({data, setData}: Props) => {
                                         key={question.id}
                                         draggableId={"q-" + question.id}
                                         index={index}
+                                        shouldRespectForcePress={true}
                                     >
                                         {(provided, snapshot) => (
                                             <TableRow
