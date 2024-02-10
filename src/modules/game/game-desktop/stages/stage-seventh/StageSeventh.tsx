@@ -6,6 +6,16 @@ import {db} from "../../../../../firebase/firebase.ts";
 import {onValue, ref, set} from "firebase/database";
 import {useNavigate} from "react-router-dom";
 
+
+type TempType = {
+    name: string,
+    lastAnswer: {
+        answer: string,
+        questionId: number,
+        winStreak: number
+    }
+}
+
 const StageSeventh = () => {
     const [players, setPlayers] = useState<User[]>([]);
     const [allPlayers, setAllPlayers] = useState<User[]>([]);
@@ -49,8 +59,19 @@ const StageSeventh = () => {
     const finishGame = () => {
         saveScores();
 
-        // const gameRef = ref(db, '/game');
-        // set(gameRef, null);
+        const gameRef = ref(db, '/game');
+        set(gameRef, null);
+
+        const answers = players.reduce((acc: TempType[], player: User) => {
+            return [...acc, {
+                name: player.name,
+                lastAnswer: player.lastAnswer
+            }];
+        }, []);
+
+        const newDate = +new Date();
+        const answersRef = ref(db, '/lastAnswers/'+ newDate);
+        set(answersRef, answers)
     }
     const onClick = () => {
         finishGame()

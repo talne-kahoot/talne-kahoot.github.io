@@ -51,8 +51,8 @@ const Quizzes = () => {
     }
 
     const finishGame = () => {
-        // const gameQuizRef = ref(db, '/game');
-        // set(gameQuizRef, null);
+        const gameQuizRef = ref(db, '/game');
+        set(gameQuizRef, null);
     }
     return (
         <div className="quizzes">
