@@ -49,8 +49,8 @@ const StageSeventh = () => {
     const finishGame = () => {
         saveScores();
 
-        const gameRef = ref(db, '/game');
-        set(gameRef, null);
+        // const gameRef = ref(db, '/game');
+        // set(gameRef, null);
     }
     const onClick = () => {
         finishGame()
