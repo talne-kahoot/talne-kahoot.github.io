@@ -27,7 +27,7 @@ class Countdown {
         } else {
             const mi = Math.floor(tt / (60 * 100));
             sessionStorage.setItem('time', `${tt - mi * 60 * 100}`);
-            const ss = Math.floor((tt - mi * 60 * 100) / 100);
+            const ss = Math.floor((tt) / 100);
             // var ms = tt - Math.floor(tt / 100) * 100;
             if (this.elem) {
                 this.elem.innerHTML = `${ss}`;
