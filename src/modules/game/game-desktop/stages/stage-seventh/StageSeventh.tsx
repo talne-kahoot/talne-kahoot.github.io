@@ -59,9 +59,6 @@ const StageSeventh = () => {
     const finishGame = () => {
         saveScores();
 
-        const gameRef = ref(db, '/game');
-        set(gameRef, null);
-
         const answers = players.reduce((acc: TempType[], player: User) => {
             return [...acc, {
                 name: player.name,
@@ -72,6 +69,10 @@ const StageSeventh = () => {
         const newDate = +new Date();
         const answersRef = ref(db, '/lastAnswers/'+ newDate);
         set(answersRef, answers)
+
+
+        const gameRef = ref(db, '/game');
+        set(gameRef, null);
     }
     const onClick = () => {
         finishGame()
