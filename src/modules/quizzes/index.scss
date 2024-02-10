@@ -1,6 +1,8 @@
 .quizzes {
   .quizzes__wrapper {
     display: flex;
+    height: 80vh;
+    overflow: scroll;
 
   }
 
