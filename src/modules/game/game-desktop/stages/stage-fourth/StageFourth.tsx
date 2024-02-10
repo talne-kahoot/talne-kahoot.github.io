@@ -21,18 +21,17 @@ type Props = {
     changeStage: () => void,
     currentQuestion: QuestionType | null
 };
+
+type CountRef = null | Countdown;
+
 const StageFourth = ({changeStage, currentQuestion}: Props) => {
     const timerRef = useRef(null);
     const [answered, setAnswered] = useState<number>(0);
+    const [isChanged, setIsChanged] = useState(false);
+    const [playersNumber, setPlayersNumber] = useState<number>(0);
+    const countRef = useRef<CountRef>(null);
 
     useEffect(() => {
-        if (timerRef.current && currentQuestion?.time) {
-            const count = new Countdown(timerRef.current, currentQuestion.time, () => {
-                changeStage();
-            });
-           count.start();
-        }
-
         const playersRef = ref(db, `/game/players`);
         onValue(playersRef, (snapshot) => {
             const players = snapshot.val();
@@ -44,10 +43,34 @@ const StageFourth = ({changeStage, currentQuestion}: Props) => {
                 }
                 return acc;
             }, 0);
+            setPlayersNumber(arrayPlayers.length);
             setAnswered(answered);
 
         });
     }, []);
+
+    useEffect(() => {
+        if (timerRef.current && currentQuestion?.time) {
+            countRef.current = new Countdown(timerRef.current, currentQuestion.time, () => {
+                onChangeStage();
+            });
+
+            countRef.current && countRef.current.start();
+        }
+    }, []);
+
+    useEffect(() => {
+        if (playersNumber === answered && playersNumber > 0 && answered > 0) {
+            countRef.current && countRef.current.stop();
+        }
+    }, [answered, playersNumber])
+
+    const onChangeStage = () => {
+        if (!isChanged) {
+            setIsChanged(true);
+            changeStage();
+        }
+    }
 
 
     return (

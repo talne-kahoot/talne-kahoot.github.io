@@ -22,28 +22,52 @@ const Game = () => {
     const [isGameStarted, setIsGameStarted] = useState(null);
 
     useEffect(() => {
+        // set questions
+        const quizRef = ref(db, '/game/quizId/');
+        onValue(quizRef, (snapshot) => {
+            const quizId = snapshot.val();
+
+            const questions_server = ref(db, '/quizzes/' + quizId);
+            onValue(questions_server, (snapshot) => {
+                const questions_server = snapshot.val();
+
+                if (questions_server?.questions && !questions) {
+                    setQuestions(questions_server.questions)
+                }
+            });
+        });
+    }, [questions]);
+
+    useEffect(() => {
+        // change stage
+        const stageRef = ref(db, '/game/stage');
+        onValue(stageRef, (snapshot) => {
+            const stage = snapshot.val();
+
+
+            if (currentStage !== stage) {
+                setCurrentStage(stage);
+            }
+        });
+    }, [currentStage]);
+
+    useEffect(() => {
+        // change current question
+        const game = ref(db, '/game/currentQuestion');
+        onValue(game, (snapshot) => {
+            const currQServer = snapshot.val();
+
+            if (currentQuestion?.id !== currQServer && questions) {
+                setCurrentQuestion(questions[currQServer])
+            }
+        });
+    }, [currentQuestion, questions]);
+
+    useEffect(() => {
         const startedGameRef = ref(db, '/game/startedGame');
         onValue(startedGameRef, (snapshot) => {
             const isGameStarted = snapshot.val();
             setIsGameStarted(isGameStarted);
-        });
-
-        const game = ref(db, '/game');
-        onValue(game, (snapshot) => {
-            const game = snapshot.val();
-            const {currentQuestion: currQServer, stage, questions: questions_server} = game;
-
-            if (stage !== currentStage) {
-                setCurrentStage(stage);
-            }
-
-            if (currentQuestion !== currQServer) {
-                setCurrentQuestion(questions_server[currQServer]);
-            }
-
-            if (!questions) {
-                setQuestions(questions_server);
-            }
         });
 
         const name = sessionStorage.getItem("name");

@@ -6,6 +6,7 @@ class Countdown {
     startTime: number;
     timer: null | ReturnType<typeof setInterval>;
     finishCallback: () => void;
+    isActive: boolean;
 
     constructor(elem: Element | null, seconds: number, finishCallback: () => void) {
         this.elem = elem;
@@ -15,14 +16,21 @@ class Countdown {
         this.startTime = +new Date();
         this.timer = null;
         this.finishCallback = finishCallback;
+        this.isActive = false;
     }
 
     count() {
+        if (!this.isActive)  {
+            clearInterval(this.timer as ReturnType<typeof setInterval>);
+        }
+
         this.usedTime = Math.floor((+new Date() - this.startTime) / 10);
 
         const tt = this.totalTime - this.usedTime;
         if (tt <= 0) {
-            this.finishCallback();
+            if (!this.isActive) {
+                this.finishCallback();
+            }
             clearInterval(this.timer as ReturnType<typeof setInterval>);
         } else {
             const mi = Math.floor(tt / (60 * 100));
@@ -49,11 +57,17 @@ class Countdown {
     start(){
         if(!this.timer){
             this.timer = setInterval(this.count.bind(this), 1);
+            this.isActive = true;
         }
     }
 
     stop() {
-        if (this.timer) clearInterval(this.timer);
+        if (this.timer) {
+            clearInterval(this.timer);
+        }
+
+        this.isActive = false;
+        this.finishCallback();
     }
 }
 export default Countdown;

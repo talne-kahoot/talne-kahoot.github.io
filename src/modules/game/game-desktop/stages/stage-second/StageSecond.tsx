@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {QuestionType} from "../../../../../components/card/Card.tsx";
 import {Paper, Zoom} from "@mui/material";
 import './index.scss';
@@ -10,13 +10,15 @@ type Props = {
 const StageSecond = ({questions, changeStage}: Props) => {
     const [state, setState] = useState(true);
 
-    setTimeout(() => {
-        setState(false);
-    }, 2500)
+    useEffect(() => {
+        setTimeout(() => {
+            setState(false);
+        }, 2500)
 
-    setTimeout(() => {
-        changeStage();
-    }, 3000)
+        setTimeout(() => {
+            changeStage();
+        }, 3000)
+    }, []);
     return (
         <div className="game__stage-second">
             <Zoom in={state} className="game__stage-second-zoom" timeout={1000}>
