@@ -51,7 +51,7 @@ const Quizzes = () => {
     }
 
     const finishGame = () => {
-        const gameQuizRef = ref(db, '/game');
+        // const gameQuizRef = ref(db, '/game');
         // set(gameQuizRef, null);
     }
     return (
