@@ -52,7 +52,7 @@ const Quizzes = () => {
 
     const finishGame = () => {
         const gameQuizRef = ref(db, '/game');
-        set(gameQuizRef, null);
+        // set(gameQuizRef, null);
     }
     return (
         <div className="quizzes">
