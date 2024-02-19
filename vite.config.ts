@@ -22,6 +22,9 @@ const manifestForPlugin: Partial<VitePWAOptions> = {
     scope: "/",
     start_url: "/",
     orientation: "portrait",
+  },
+  devOptions : {
+    enabled: true
   }
 };
 
