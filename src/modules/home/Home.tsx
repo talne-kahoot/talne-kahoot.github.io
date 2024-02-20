@@ -1,13 +1,15 @@
-import React, {useEffect, useState} from 'react';
+import React, {useEffect, useRef, useState} from 'react';
 import {Link, useNavigate} from 'react-router-dom';
-import {Button, Paper, TextField} from "@mui/material";
+import {Button, Paper, Slide, TextField} from "@mui/material";
 import {onValue, ref, set} from "firebase/database";
+import {isMobile} from "react-device-detect";
 
 import {RatingCustomIcon, SuperAdminCustomIcon} from "../../components/icons";
 import {db} from "../../firebase/firebase.ts";
 
 import './index.scss';
 import {getRandomAvatarParams} from "../../components/avatar /utils";
+import {BeforeInstallPromptEvent} from "./types.ts";
 
 const WARNING_MESSAGE = {
     req_name: 'Name is required! Please enter name.',
@@ -18,12 +20,28 @@ const Home = () => {
     const [name, setName] = useState('');
     const [warning, setWarning] = useState<string | null>(null);
     const [isStartedQuiz, setIsStartedQuiz] = useState(false);
+    const [isInstallVisible, setIsInstallVisible] = useState(false);
+    const installRef = useRef<BeforeInstallPromptEvent | null>(null);
 
     useEffect(() => {
         const name = sessionStorage.getItem("name");
         if (name) {
             navigate('/game');
         }
+
+        window.addEventListener('beforeinstallprompt', e => {
+            // For older browsers
+            e.preventDefault();
+            console.log("Install Prompt fired");
+
+            installRef.current = e as BeforeInstallPromptEvent;
+            // See if the app is already installed, in that case, do nothing
+            // if ((window.matchMedia && window.matchMedia('(display-mode: standalone)').matches) || window?.navigator?.standalone === true) {
+            //     return false;
+            // }
+            // Set the state variable to make button visible
+            setIsInstallVisible(true);
+        })
     }, []);
 
     const starCountRef = ref(db, '/game/quizId');
@@ -84,6 +102,15 @@ const Home = () => {
         }
     }
 
+    const onInstall = () => {
+        if(installRef.current?.prompt) {
+            installRef.current?.prompt();
+            // installRef.currrent = null;
+            setIsInstallVisible(false);
+        }
+    };
+
+
 
     return (
         <div className="home">
@@ -120,6 +147,12 @@ const Home = () => {
                         </Link>
                     </div>
 
+
+                    <Slide direction="up" in={isInstallVisible} timeout={3000} mountOnEnter unmountOnExit>
+                        <Button variant="contained" color="info" className="install-button" onClick={onInstall}>
+                            Завантажити гру на {isMobile ? 'мобільний' : 'комп\'ютер'}
+                        </Button>
+                    </Slide>
                 </Paper>
             </div>
         </div>

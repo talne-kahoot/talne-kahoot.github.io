@@ -16,6 +16,19 @@
       padding: 10px;
       box-sizing: border-box;
     }
+
+    .install-button {
+      position: fixed;
+      bottom: 20px;
+      width: 520px;
+      height: 40px;
+      border-radius: 10px;
+
+      @media (max-width: 768px) {
+        width: calc(90% + 20px);
+        overflow: hidden;
+      }
+    }
   }
 
   .home__title {
