@@ -159,6 +159,7 @@ const Home = () => {
                     </Slide>
 
                     <PWAPrompt
+                        timesToShow={1000}
                         copyTitle="Завантаження Kahoot"
                         copyBody="Щоб завантажити гру TALNE Kahoot на телефон відкрийте браузер (Safari/Chrome) і виконайте перелічені нижче кроки."
                         copyShareButtonLabel="1) Натисніть на кнопку 'Поділитись'"
