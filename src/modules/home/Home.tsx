@@ -28,7 +28,6 @@ const Home = () => {
     const installRef = useRef<BeforeInstallPromptEvent | null>(null);
 
     useEffect(() => {
-        localStorage.clear();
         const name = sessionStorage.getItem("name");
         if (name) {
             navigate('/game');
@@ -168,7 +167,7 @@ const Home = () => {
                         copyClosePrompt="Закрити"
                         onClose={() => localStorage.clear()}
                         permanentlyHideOnDismiss={false}
-                        debug={true}
+                        // debug={true}
                     />
                 </Paper>
             </div>
