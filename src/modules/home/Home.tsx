@@ -105,7 +105,7 @@ const Home = () => {
     const onInstall = () => {
         if(installRef.current?.prompt) {
             installRef.current?.prompt();
-            // installRef.currrent = null;
+            installRef.current = null;
             setIsInstallVisible(false);
         }
     };
