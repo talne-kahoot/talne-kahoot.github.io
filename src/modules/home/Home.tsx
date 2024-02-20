@@ -28,6 +28,7 @@ const Home = () => {
     const installRef = useRef<BeforeInstallPromptEvent | null>(null);
 
     useEffect(() => {
+        localStorage.clear();
         const name = sessionStorage.getItem("name");
         if (name) {
             navigate('/game');
@@ -165,6 +166,7 @@ const Home = () => {
                         copyShareButtonLabel="1) Натисніть на кнопку 'Поділитись'"
                         copyAddHomeButtonLabel="2) Натисніть 'Додати на початковий екран'"
                         copyClosePrompt="Закрити"
+                        onClose={() => localStorage.clear()}
                         // permanentlyHideOnDismiss={true}
                         // debug={true}
                     />
