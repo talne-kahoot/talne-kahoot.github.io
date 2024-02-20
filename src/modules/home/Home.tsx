@@ -139,7 +139,7 @@ const Home = () => {
                         inputProps={{ maxLength: 15 }}
                     />
                     <Button disabled={!isStartedQuiz} variant="outlined" className="home__join-room" onClick={addNewUser}>
-                        Почати гру!
+                        Почати гру
                     </Button>
                     <div className="home__host-action">
                         <Link to='/rating'>
