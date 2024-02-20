@@ -16,8 +16,9 @@ import {getRandomAvatarParams} from "../../components/avatar /utils";
 import {BeforeInstallPromptEvent} from "./types.ts";
 
 const WARNING_MESSAGE = {
-    req_name: 'Name is required! Please enter name.',
-    uniq_name: 'This name is already taken. Please enter another name.'
+    req_name: "Ім'я обов'язкове! Будь ласка, введіть ім'я.",
+    uniq_name: "Це ім'я вже додано в грі. Будь ласка, введіть інше.",
+    req_start: 'Дочекайтесь, доки адміністратор створить гру.'
 };
 const Home = () => {
     const navigate = useNavigate();
@@ -57,6 +58,15 @@ const Home = () => {
         }
     });
     const addNewUser = () => {
+        if(!isStartedQuiz) {
+            setWarning(WARNING_MESSAGE.req_start);
+
+            setTimeout(() => {
+                setWarning(null);
+            }, 6000)
+            return;
+        }
+
         if (!name) {
             setWarning(WARNING_MESSAGE.req_name);
             return;
@@ -127,7 +137,7 @@ const Home = () => {
                         error={!!warning}
                         helperText={warning}
                         className="home__input"
-                        label="Ім'я"
+                        label={!isStartedQuiz ? 'Гра налаштовується, зачекайте...' : "Введіть ім'я"}
                         variant="outlined"
                         onChange={(e) => {
                             setName(e.target.value);
@@ -138,7 +148,7 @@ const Home = () => {
                         onKeyDown={onKeyEnter}
                         inputProps={{ maxLength: 15 }}
                     />
-                    <Button disabled={!isStartedQuiz} variant="outlined" className="home__join-room" onClick={addNewUser}>
+                    <Button variant="outlined" className="home__join-room" onClick={addNewUser}>
                         Почати гру
                     </Button>
                     <div className="home__host-action">
