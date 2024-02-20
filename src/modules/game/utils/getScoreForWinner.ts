@@ -28,7 +28,7 @@ class Countdown {
 
         const tt = this.totalTime - this.usedTime;
         if (tt <= 0) {
-            if (!this.isActive) {
+            if (this.isActive) {
                 this.finishCallback();
             }
             clearInterval(this.timer as ReturnType<typeof setInterval>);

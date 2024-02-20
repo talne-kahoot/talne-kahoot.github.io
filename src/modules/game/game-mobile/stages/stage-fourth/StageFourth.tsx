@@ -34,6 +34,7 @@ const StageFourth = ({currentQuestion}: Props) => {
     useEffect(() => {
         if (currentQuestion) {
             const count = new Countdown(null, currentQuestion?.time, () => {
+
             });
             count.start();
         }
