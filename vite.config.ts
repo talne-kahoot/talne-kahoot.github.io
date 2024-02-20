@@ -5,7 +5,7 @@ import {VitePWA, VitePWAOptions} from "vite-plugin-pwa";
 
 // https://vitejs.dev/config/
 const manifestForPlugin: Partial<VitePWAOptions> = {
-  registerType: "prompt",
+  registerType: "autoUpdate",
   includeAssets: ["android-chrome-192x192.png", "android-chrome-512x512.png", "favicon.ico", "apple-touch-icon.png"],
   manifest: {
     name: "Talne Kahoot",
