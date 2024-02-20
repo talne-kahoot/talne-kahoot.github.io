@@ -167,8 +167,8 @@ const Home = () => {
                         copyAddHomeButtonLabel="2) Натисніть 'Додати на початковий екран'"
                         copyClosePrompt="Закрити"
                         onClose={() => localStorage.clear()}
-                        // permanentlyHideOnDismiss={true}
-                        // debug={true}
+                        permanentlyHideOnDismiss={false}
+                        debug={true}
                     />
                 </Paper>
             </div>
