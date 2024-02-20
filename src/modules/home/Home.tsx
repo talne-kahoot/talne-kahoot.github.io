@@ -3,6 +3,10 @@ import {Link, useNavigate} from 'react-router-dom';
 import {Button, Paper, Slide, TextField} from "@mui/material";
 import {onValue, ref, set} from "firebase/database";
 import {isMobile} from "react-device-detect";
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-expect-error
+import PWAPrompt from 'react-ios-pwa-prompt'
+
 
 import {RatingCustomIcon, SuperAdminCustomIcon} from "../../components/icons";
 import {db} from "../../firebase/firebase.ts";
@@ -153,6 +157,16 @@ const Home = () => {
                             Завантажити гру на {isMobile ? 'мобільний' : 'комп\'ютер'}
                         </Button>
                     </Slide>
+
+                    <PWAPrompt
+                        copyTitle="Завантаження Kahoot"
+                        copyBody="Щоб завантажити гру TALNE Kahoot на телефон відкрийте браузер (Safari/Chrome) і виконайте перелічені нижче кроки."
+                        copyShareButtonLabel="1) Натисніть на кнопку 'Поділитись'"
+                        copyAddHomeButtonLabel="2) Натисніть 'Додати на початковий екран'"
+                        copyClosePrompt="Закрити"
+                        permanentlyHideOnDismiss={true}
+                        debug={true}
+                    />
                 </Paper>
             </div>
         </div>
