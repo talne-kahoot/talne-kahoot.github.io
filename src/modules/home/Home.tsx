@@ -165,7 +165,7 @@ const Home = () => {
                         copyShareButtonLabel="1) Натисніть на кнопку 'Поділитись'"
                         copyAddHomeButtonLabel="2) Натисніть 'Додати на початковий екран'"
                         copyClosePrompt="Закрити"
-                        permanentlyHideOnDismiss={true}
+                        // permanentlyHideOnDismiss={true}
                         // debug={true}
                     />
                 </Paper>
