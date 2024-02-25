@@ -6,11 +6,13 @@ import {onChildAdded, onChildChanged, onChildRemoved, onValue, ref, set} from "f
 import {db} from "../../firebase/firebase.ts";
 import {GameMobile} from "./game-mobile";
 
-import './index.scss';
-import {GameDesktop} from "./game-desktop";
+import {isLastStage, getNextStage, getNextQuestion} from "./utils";
 import {QuestionType} from "../../components/card/Card.tsx";
-import {STAGES} from "./constants.ts";
+import {MAPPED_STAGE, STAGES} from "./constants.ts";
+import {GameDesktop} from "./game-desktop";
 import {User} from "./types.ts";
+
+import './index.scss';
 
 
 const Game = () => {
@@ -18,7 +20,7 @@ const Game = () => {
     const [users, setUsers] = useState<User[]>([]);
     const [questions, setQuestions] = useState<QuestionType[] | null>(null);
     const [currentQuestion, setCurrentQuestion] = useState<QuestionType | null>(null);
-    const [currentStage, setCurrentStage] = useState(null);
+    const [currentStage, setCurrentStage] = useState(MAPPED_STAGE.START);
     const [isGameStarted, setIsGameStarted] = useState(null);
 
     useEffect(() => {
@@ -111,8 +113,13 @@ const Game = () => {
                 }
             };
         }
-    }, [isGameStarted]);
+    }, [isGameStarted, navigate]);
 
+    const setCurrentTimeInDB = () => {
+        const now = +(new Date());
+        const currentTimeRef = ref(db, '/game/currentTime');
+        set(currentTimeRef, currentQuestion?.id === MAPPED_STAGE.QUESTION_AND_ANSWER ? now : null);
+    };
 
     const changeStage = () => {
         const stageRef = ref(db, '/game/stage');
@@ -122,20 +129,21 @@ const Game = () => {
             return;
         }
 
-        if (currentStage === STAGES.length - 1) {
+        if (isLastStage(currentStage)) {
             console.error('Game is finished');
             return;
         }
 
+        setCurrentTimeInDB();
+
         const lastQuestion = questions?.[questions.length - 1];
-        if (currentQuestion?.id !== lastQuestion?.id && currentStage === 5) {
-            // set stage "PREVIEW QUESTION"
-            set(stageRef, 2);
+        if (currentQuestion?.id !== lastQuestion?.id && currentStage === MAPPED_STAGE.SCORE_RESULT) {
+            set(stageRef, MAPPED_STAGE.PREVIEW_QUESTION);
             changeQuestion();
-        } else if(currentQuestion?.id === lastQuestion?.id && currentStage === 4) {
-            set(stageRef, 6);
+        } else if(currentQuestion?.id === lastQuestion?.id && currentStage === MAPPED_STAGE.RESULT) {
+            set(stageRef, MAPPED_STAGE.FINISH);
         } else {
-            set(stageRef, (currentStage || 0) + 1);
+            set(stageRef, getNextStage(currentStage));
         }
     };
 
@@ -146,7 +154,7 @@ const Game = () => {
             return;
         }
 
-        const nextQuestion = (currentQuestion?.id || 0) + 1;
+        const nextQuestion = getNextQuestion(currentQuestion);
 
         if (nextQuestion) {
             set(questionRef, nextQuestion);
@@ -161,14 +169,14 @@ const Game = () => {
             isMobile ?
                 <GameMobile
                     users={users}
-                    stage={STAGES[currentStage || 0]}
+                    stage={STAGES[currentStage]}
                     currentQuestion={currentQuestion}
                 /> :
                 <GameDesktop
                     users={users}
                     lastQuestion={questions?.[questions.length - 1]}
                     changeStage={changeStage}
-                    stage={STAGES[currentStage || 0]}
+                    stage={STAGES[currentStage]}
                     questions={questions}
                     currentQuestion={currentQuestion}
                 />

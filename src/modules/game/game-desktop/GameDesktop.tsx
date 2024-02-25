@@ -19,8 +19,14 @@ type Props = {
 
 const GameDesktop = ({users, changeStage, stage, questions, currentQuestion, lastQuestion}: Props) => {
     const [isFullscreen, setIsFullscreen] = useState(false);
+    const [isAdmin, setIsAdmin] = useState<boolean>(false);
 
     useEffect(() => {
+        const isAuth = sessionStorage.getItem("isAuth");
+        if (isAuth) {
+            setIsAdmin(true);
+        }
+
         document.addEventListener('fullscreenchange', () => {
             function onFullscreenChange() {
                 setIsFullscreen(Boolean(document.fullscreenElement));
@@ -50,16 +56,24 @@ const GameDesktop = ({users, changeStage, stage, questions, currentQuestion, las
             {isFullscreen &&
                 <FullScreenExitCustomIcon className={fullScreenIconClassName} onClick={onChangeFullScreen}/>}
             <div className="game">
-                {stage === STAGE.START && <StageFirst users={users} changeStage={changeStage}/>}
+                {stage === STAGE.START && <StageFirst users={users} changeStage={changeStage} isAdmin={isAdmin}/>}
                 {stage === STAGE.PREVIEW_QUIZ && <StageSecond questions={questions} changeStage={changeStage}/>}
                 {stage === STAGE.PREVIEW_QUESTION &&
-                    <StageThird changeStage={changeStage} currentQuestion={currentQuestion}/>}
+                    <StageThird changeStage={changeStage} currentQuestion={currentQuestion}/>
+                }
                 {stage === STAGE.QUESTION_AND_ANSWER &&
-                    <StageFourth changeStage={changeStage} currentQuestion={currentQuestion}/>}
-                {stage === STAGE.RESULT && <StageFifth changeStage={changeStage} currentQuestion={currentQuestion}
-                                                       lastQuestion={lastQuestion}/>}
-                {stage === STAGE.SCORE_RESULT && <StageSixth changeStage={changeStage}/>}
-                {stage === STAGE.FINISH && <StageSeventh/>}
+                    <StageFourth changeStage={changeStage} currentQuestion={currentQuestion}/>
+                }
+                {stage === STAGE.RESULT &&
+                    <StageFifth
+                        changeStage={changeStage}
+                        currentQuestion={currentQuestion}
+                        lastQuestion={lastQuestion}
+                        isAdmin={isAdmin}
+                    />
+                }
+                {stage === STAGE.SCORE_RESULT && <StageSixth changeStage={changeStage} isAdmin={isAdmin}/>}
+                {stage === STAGE.FINISH && <StageSeventh isAdmin={isAdmin}/>}
             </div>
         </>
     );

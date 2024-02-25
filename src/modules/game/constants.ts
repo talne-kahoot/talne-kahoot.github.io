@@ -9,3 +9,13 @@ export const STAGE = {
     SCORE_RESULT: 'SCORE_RESULT',
     FINISH: 'FINISH'
 }
+
+export const MAPPED_STAGE = {
+    START: 0,
+    PREVIEW_QUIZ: 1,
+    PREVIEW_QUESTION: 2,
+    QUESTION_AND_ANSWER: 3,
+    RESULT: 4,
+    SCORE_RESULT: 5,
+    FINISH: 6
+}

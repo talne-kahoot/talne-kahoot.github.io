@@ -8,17 +8,20 @@ import './index.scss';
 type Props = {
     currentQuestion: QuestionType | null,
     lastQuestion?: QuestionType,
-    onClickNextStage: () => void
+    onClickNextStage: () => void,
+    isAdmin: boolean
 };
 
 
-export const StageFifthPuzzleView = ({currentQuestion, lastQuestion, onClickNextStage}: Props) => {
+export const StageFifthPuzzleView = ({currentQuestion, lastQuestion, onClickNextStage, isAdmin}: Props) => {
     return (
         <div className="stage-fifth__body">
-            <Button variant="outlined" color="success" onClick={onClickNextStage}
-                    className="stage-fourth__next-button">
-                {currentQuestion?.id !== lastQuestion?.id ? 'Далі' : 'Результати'}
-            </Button>
+            {isAdmin &&
+                <Button variant="outlined" color="success" onClick={onClickNextStage}
+                        className="stage-fourth__next-button">
+                    {currentQuestion?.id !== lastQuestion?.id ? 'Далі' : 'Результати'}
+                </Button>
+            }
 
             <div className="stage-fourth__img stage-fifth__puzzle">
                 {

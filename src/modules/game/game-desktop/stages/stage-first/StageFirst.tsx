@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useEffect} from 'react';
 import {useNavigate} from "react-router-dom";
 
 import {onValue, ref, set} from "firebase/database";
@@ -17,34 +17,25 @@ import './index.scss';
 
 type Props = {
     users: User[],
-    changeStage: () => void
+    changeStage: () => void,
+    isAdmin: boolean
 }
 
-const StageFirst = ({users, changeStage}: Props) => {
+const StageFirst = ({users, changeStage, isAdmin}: Props) => {
     const navigate = useNavigate();
-    const [isAdmin, setIsAdmin] = useState<boolean>(false);
-
-
 
     useEffect(() => {
-        const isAuth = sessionStorage.getItem("isAuth");
-        if (isAuth) {
-            setIsAdmin(true);
-        }
-
         const gameRef = ref(db, '/game/quizId');
-
         onValue(gameRef, (snapshot) => {
             const data = snapshot.val();
-            if (!data && isAuth) {
+            if (!data && isAdmin) {
                 navigate('/quizzes');
-            } else if (!data && !isAuth) {
+            } else if (!data && !isAdmin) {
                 navigate('/');
             }
         }, {onlyOnce: true});
-
-
     }, []);
+
     const onStartGame = () => {
         changeStage();
 

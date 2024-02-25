@@ -16,7 +16,11 @@ type TempType = {
     }
 }
 
-const StageSeventh = () => {
+type Props = {
+    isAdmin: boolean
+}
+
+const StageSeventh = ({isAdmin}: Props) => {
     const [players, setPlayers] = useState<User[]>([]);
     const [allPlayers, setAllPlayers] = useState<User[]>([]);
     const navigate = useNavigate();
@@ -86,13 +90,17 @@ const StageSeventh = () => {
 
     return (
         <div className="seventh-stage">
-            <Button variant="outlined" color="success" onClick={onClick} className="seventh-stage__close-button">
-                завершити гру
-            </Button>
+            {isAdmin && <>
+                <Button variant="outlined" color="success" onClick={onClick}
+                        className="seventh-stage__close-button">
+                    завершити гру
+                </Button>
 
-            <Button variant="outlined" color="success" onClick={onRatingClick} className="seventh-stage__close-button rating">
-                рейтинг
-            </Button>
+                <Button variant="outlined" color="success" onClick={onRatingClick}
+                        className="seventh-stage__close-button rating">
+                    рейтинг
+                </Button>
+            </>}
 
             {players.length ? <>
                 {

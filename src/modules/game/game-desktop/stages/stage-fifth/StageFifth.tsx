@@ -16,11 +16,12 @@ import {Paper, Zoom} from "@mui/material";
 type Props = {
     changeStage: () => void,
     currentQuestion: QuestionType | null,
-    lastQuestion?: QuestionType
+    lastQuestion?: QuestionType,
+    isAdmin: boolean
 };
 
 
-const StageFifth = ({changeStage, currentQuestion, lastQuestion}: Props) => {
+const StageFifth = ({changeStage, currentQuestion, lastQuestion, isAdmin}: Props) => {
 
     const onClick = () => {
         changeStage();
@@ -40,6 +41,7 @@ const StageFifth = ({changeStage, currentQuestion, lastQuestion}: Props) => {
                     currentQuestion={currentQuestion}
                     lastQuestion={lastQuestion}
                     onClickNextStage={onClick}
+                    isAdmin={isAdmin}
                 />
             }
             {currentQuestion?.questionType === QUESTION_TYPE.TRUE_OR_FALSE &&
@@ -47,6 +49,7 @@ const StageFifth = ({changeStage, currentQuestion, lastQuestion}: Props) => {
                     currentQuestion={currentQuestion}
                     lastQuestion={lastQuestion}
                     onClickNextStage={onClick}
+                    isAdmin={isAdmin}
                 />
             }
             {currentQuestion?.questionType === QUESTION_TYPE.TYPE_ANSWER &&
@@ -54,6 +57,7 @@ const StageFifth = ({changeStage, currentQuestion, lastQuestion}: Props) => {
                     currentQuestion={currentQuestion}
                     lastQuestion={lastQuestion}
                     onClickNextStage={onClick}
+                    isAdmin={isAdmin}
                 />
             }
             {currentQuestion?.questionType === QUESTION_TYPE.SLIDER &&
@@ -61,6 +65,7 @@ const StageFifth = ({changeStage, currentQuestion, lastQuestion}: Props) => {
                     currentQuestion={currentQuestion}
                     lastQuestion={lastQuestion}
                     onClickNextStage={onClick}
+                    isAdmin={isAdmin}
                 />
             }
             {currentQuestion?.questionType === QUESTION_TYPE.PUZZLE &&
@@ -68,6 +73,7 @@ const StageFifth = ({changeStage, currentQuestion, lastQuestion}: Props) => {
                     currentQuestion={currentQuestion}
                     lastQuestion={lastQuestion}
                     onClickNextStage={onClick}
+                    isAdmin={isAdmin}
                 />
             }
         </div>

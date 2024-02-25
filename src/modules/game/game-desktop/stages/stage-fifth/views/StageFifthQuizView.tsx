@@ -12,7 +12,8 @@ import {User} from "../../../../types";
 type Props = {
     currentQuestion: QuestionType | null,
     lastQuestion?: QuestionType,
-    onClickNextStage: () => void
+    onClickNextStage: () => void,
+    isAdmin: boolean
 };
 
 type Accumulator = {
@@ -23,7 +24,7 @@ type Accumulator = {
 };
 
 
-export const StageFifthQuizView = ({currentQuestion, lastQuestion, onClickNextStage}: Props) => {
+export const StageFifthQuizView = ({currentQuestion, lastQuestion, onClickNextStage, isAdmin}: Props) => {
     const [playersAnswered, setPlayersAnswered] = useState({A: 0, B: 0, C: 0, D: 0});
     const [players, setPlayers] = useState<User[]>([]);
     useEffect(() => {
@@ -50,10 +51,12 @@ export const StageFifthQuizView = ({currentQuestion, lastQuestion, onClickNextSt
     return (
         <>
             <div className="stage-fifth__body">
-                <Button variant="outlined" color="success" onClick={onClickNextStage}
-                        className="stage-fourth__next-button">
-                    {currentQuestion?.id !== lastQuestion?.id ? 'Далі' : 'Результати'}
-                </Button>
+                {isAdmin &&
+                    <Button variant="outlined" color="success" onClick={onClickNextStage}
+                            className="stage-fourth__next-button">
+                        {currentQuestion?.id !== lastQuestion?.id ? 'Далі' : 'Результати'}
+                    </Button>
+                }
 
                 <div className="stage-fourth__img stage-fifth__charts">
                     {getChartElements(playersAnswered).map(({answer, variant, className, icon}, index) => (

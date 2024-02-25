@@ -9,9 +9,10 @@ import {User} from "../../../types.ts";
 import UserAvatar from "../../../../../components/avatar /Avatar";
 
 type Props = {
-    changeStage: () => void
+    changeStage: () => void,
+    isAdmin: boolean
 };
-const StageSixth = ({changeStage}: Props) => {
+const StageSixth = ({changeStage, isAdmin}: Props) => {
     const [players, setPlayers] = useState<User[]>();
 
     useEffect(() => {
@@ -35,9 +36,11 @@ const StageSixth = ({changeStage}: Props) => {
     return (
         <div className="stage-sixth">
             <div className="stage-sixth__action-bitton">
-                <Button variant="outlined" color="success" onClick={onClick} className="stage-sixth__next-stage">
-                    Далі
-                </Button>
+                {isAdmin &&
+                    <Button variant="outlined" color="success" onClick={onClick} className="stage-sixth__next-stage">
+                        Далі
+                    </Button>
+                }
             </div>
 
             <div className="stage-sixth__score">

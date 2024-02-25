@@ -13,13 +13,14 @@ import './index.scss';
 type Props = {
     currentQuestion: QuestionType | null,
     lastQuestion?: QuestionType,
-    onClickNextStage: () => void
+    onClickNextStage: () => void,
+    isAdmin: boolean
 };
 
 type Accumulator = string[];
 
 
-export const StageFifthTypeAnswerView = ({currentQuestion, lastQuestion, onClickNextStage}: Props) => {
+export const StageFifthTypeAnswerView = ({currentQuestion, lastQuestion, onClickNextStage, isAdmin}: Props) => {
     const [playersAnswered, setPlayersAnswered] = useState<Accumulator>([]);
     useEffect(() => {
         const playersRef = ref(db, `/game/players`);
@@ -58,10 +59,12 @@ export const StageFifthTypeAnswerView = ({currentQuestion, lastQuestion, onClick
     return (
         <>
             <div className="stage-fifth__body">
-                <Button variant="outlined" onClick={onClickNextStage}
-                        className="stage-fourth__next-button">
-                    {currentQuestion?.id !== lastQuestion?.id ? 'Далі' : 'Результати'}
-                </Button>
+                {isAdmin &&
+                    <Button variant="outlined" color="success" onClick={onClickNextStage}
+                            className="stage-fourth__next-button">
+                        {currentQuestion?.id !== lastQuestion?.id ? 'Далі' : 'Результати'}
+                    </Button>
+                }
 
                 <div className="stage-fourth__img stage-fifth__type-answer">
                     <Paper elevation={24} className="stage-fifth__type-answer-paper">
