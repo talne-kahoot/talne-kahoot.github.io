@@ -77,6 +77,9 @@ const StageSeventh = ({isAdmin}: Props) => {
 
         const gameRef = ref(db, '/game');
         set(gameRef, null);
+
+        const statusRef = ref(db, '/isGameActive');
+        set(statusRef, false);
     }
     const onClick = () => {
         finishGame()

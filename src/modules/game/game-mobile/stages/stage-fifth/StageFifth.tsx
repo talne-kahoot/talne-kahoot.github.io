@@ -66,7 +66,7 @@ const StageFifth = ({currentQuestion}: Props) => {
                     <Zoom in={true} timeout={500}>
                         <div className="correct-answer__wrapper">
                             <Typography variant="h3" gutterBottom className="correct-answer__title">
-                                {streak? 'Вірно!': 'Ну.. норм!'}
+                                {streak ? 'Вірно!' : 'Ну.. норм!'}
                                 <br/>
                                 (+ {lastScore})
                             </Typography>

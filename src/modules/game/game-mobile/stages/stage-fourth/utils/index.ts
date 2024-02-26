@@ -1,1 +1,2 @@
-export {getCorrectScore} from './getCorrectScore';
+export {getCountOfCorrectPuzzleAnswers} from './getCountOfCorrectPuzzleAnswers';
+export {setWinStreakAndScore} from './setWinStreakAndScore';

@@ -2,6 +2,7 @@ import {QuestionType} from "../../../../../../components/card/Card";
 import {QUESTION_TYPE} from "../../../../../../constants";
 import {Answer} from "../StageFifth";
 import {PuzzleType} from "../../../../../../types";
+import {getCountOfCorrectPuzzleAnswers} from "../../stage-fourth/utils";
 
 export const getCondition = (lastAnswer: Answer | null, currentQuestion: QuestionType | null) => {
     const isCurrentQuestion = lastAnswer?.questionId === currentQuestion?.id;
@@ -29,16 +30,10 @@ export const getCondition = (lastAnswer: Answer | null, currentQuestion: Questio
             return isCurrentQuestion && inRange;
         }
         case QUESTION_TYPE.PUZZLE: {
-            let countOfCorrectAnswers = 0;
-            const lastAnswerPuzzle = [...lastAnswer?.answer as PuzzleType[]].sort((a, b) => a.id - b.id);
-            const currentQuestionPuzzle = [...currentQuestion?.PUZZLE || []].sort((a, b) => a.id - b.id);
+            const lastAnswerPuzzle = [...lastAnswer?.answer as PuzzleType[]];
+            const count = getCountOfCorrectPuzzleAnswers({currentQuestion, answer: lastAnswerPuzzle as PuzzleType[]});
 
-            lastAnswerPuzzle?.length && lastAnswerPuzzle[0] && [...lastAnswerPuzzle].forEach((item, index) => {
-                if (item?.id === currentQuestionPuzzle?.[index]?.id) {
-                    countOfCorrectAnswers++;
-                }
-            })
-            return countOfCorrectAnswers > 0;
+            return count > lastAnswerPuzzle.length / 2;
         }
         default:
             return false;

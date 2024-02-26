@@ -1,13 +1,14 @@
 import React, {useEffect, useState} from 'react';
-import {onChildChanged, onValue, ref} from "firebase/database";
+import {onValue, ref} from "firebase/database";
 
-import {StageFifth, StageFirst, StageSecond, StageSeventh,StageFourth, StageSixth, StageThird} from "./stages";
+import {StageFifth, StageFirst, StageFourth, StageSecond, StageSeventh, StageSixth, StageThird} from "./stages";
 import {QuestionType} from "../../../components/card/Card.tsx";
 import {db} from "../../../firebase/firebase.ts";
 import {STAGE} from "../constants.ts";
 import {User} from "../types";
 
 import './index.scss';
+import {useNavigate} from "react-router-dom";
 
 type Props = {
     users: User[],
@@ -15,14 +16,17 @@ type Props = {
     currentQuestion: QuestionType | null
 }
 const GameMobile = ({users, stage, currentQuestion}: Props) => {
-    const [startedGame, setStartedGame] = useState(true);
     const [currentUser, setCurrentUser] = useState<User | null>(null);
+    const navigate = useNavigate();
 
     useEffect(() => {
-        onValue(ref(db, '/game/startedGame'), (snapshot) => {
-            const data = snapshot.val();
-            if (data && !startedGame) {
-                setStartedGame(true);
+        const isActiveGameRef = ref(db, '/isGameActive');
+        onValue(isActiveGameRef, (snapshot) => {
+            const isGameActive = snapshot.val();
+
+            if (!isGameActive) {
+                sessionStorage.removeItem("name");
+                navigate("/");
             }
         });
     }, []);
@@ -35,14 +39,6 @@ const GameMobile = ({users, stage, currentQuestion}: Props) => {
             }
         });
     }, [users]);
-
-    const startedGameRef = ref(db, '/game');
-    onChildChanged(startedGameRef, (snapshot) => {
-        const data = snapshot.val();
-        if (typeof data === 'boolean' && data && !startedGame) {
-            setStartedGame(true);
-        }
-    });
 
     return (
         <div className="mobile-wrapper-game">

@@ -53,6 +53,9 @@ const Quizzes = () => {
     const finishGame = () => {
         const gameQuizRef = ref(db, '/game');
         set(gameQuizRef, null);
+
+        const statusRef = ref(db, '/isGameActive');
+        set(statusRef, false);
     }
     return (
         <div className="quizzes">

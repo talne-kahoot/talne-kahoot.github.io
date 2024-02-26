@@ -46,6 +46,9 @@ const Quiz = () => {
             playersAnswered: {}
         });
 
+        const statusRef = ref(db, '/isGameActive');
+        set(statusRef, true);
+
         navigate('/game');
     };
 

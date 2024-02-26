@@ -115,11 +115,6 @@ const Game = () => {
         }
     }, [isGameStarted, navigate]);
 
-    const setCurrentTimeInDB = () => {
-        const now = +(new Date());
-        const currentTimeRef = ref(db, '/game/currentTime');
-        set(currentTimeRef, currentQuestion?.id === MAPPED_STAGE.QUESTION_AND_ANSWER ? now : null);
-    };
 
     const changeStage = () => {
         const stageRef = ref(db, '/game/stage');
@@ -133,8 +128,6 @@ const Game = () => {
             console.error('Game is finished');
             return;
         }
-
-        setCurrentTimeInDB();
 
         const lastQuestion = questions?.[questions.length - 1];
         if (currentQuestion?.id !== lastQuestion?.id && currentStage === MAPPED_STAGE.SCORE_RESULT) {

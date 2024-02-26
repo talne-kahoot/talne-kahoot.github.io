@@ -33,8 +33,8 @@ class Countdown {
             }
             clearInterval(this.timer as ReturnType<typeof setInterval>);
         } else {
-            const mi = Math.floor(tt / (60 * 100));
-            sessionStorage.setItem('time', `${tt - mi * 60 * 100}`);
+            // const mi = Math.floor(tt / (60 * 100));
+            // sessionStorage.setItem('time', `${tt - mi * 60 * 100}`);
             const ss = Math.floor((tt) / 100);
             // var ms = tt - Math.floor(tt / 100) * 100;
             if (this.elem) {

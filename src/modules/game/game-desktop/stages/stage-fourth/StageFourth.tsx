@@ -6,7 +6,7 @@ import Countdown from "../../../utils/getScoreForWinner.ts";
 
 import './index.scss';
 import {User} from "../../../types.ts";
-import {onValue, ref} from "firebase/database";
+import {onValue, ref, set} from "firebase/database";
 import {db} from "../../../../../firebase/firebase.ts";
 import {QUESTION_TYPE} from "../../../../../constants.ts";
 import {
@@ -53,9 +53,18 @@ const StageFourth = ({changeStage, currentQuestion}: Props) => {
         if (timerRef.current && currentQuestion?.time) {
             countRef.current = new Countdown(timerRef.current, currentQuestion.time, () => {
                 onChangeStage();
+
+                const startedTimeRef = ref(db, '/game/startedTime');
+                set(startedTimeRef, null);
             });
 
-            countRef.current && countRef.current.start();
+            if (countRef.current) {
+                countRef.current.start();
+
+                const now = +(new Date());
+                const startedTimeRef = ref(db, '/game/startedTime');
+                set(startedTimeRef, now);
+            }
         }
     }, []);
 
