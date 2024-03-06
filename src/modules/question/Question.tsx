@@ -86,6 +86,15 @@ const Question = (props: Props) => {
         props.onDelete(props.id);
     };
 
+    const onQuestionImageBlur = () => {
+        // DOESN'T WORK LOCAL, ONLY IN PRODUCTION
+        const isImageFromGoogle = img.includes('drive.google.com');
+        if (isImageFromGoogle) {
+            const key = img.split('/').sort((a, b) => b.length - a.length)[0];
+            setUrl(`https://lh3.googleusercontent.com/d/${key}`)
+        }
+    }
+
     return (
         <div className="question">
             <Accordion expanded={expanded}>
@@ -114,6 +123,7 @@ const Question = (props: Props) => {
                         variant="outlined"
                         value={img}
                         onChange={e => setUrl(e.target.value)}
+                        onBlur={onQuestionImageBlur}
                     />
 
                     <TextField
