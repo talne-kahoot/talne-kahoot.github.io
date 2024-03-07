@@ -20,6 +20,41 @@ const GameMobile = ({users, stage, currentQuestion}: Props) => {
     const navigate = useNavigate();
 
     useEffect(() => {
+        let xBot: number | null = null;
+        let yBot: number | null = null;
+
+        document.addEventListener('touchstart', (e) => {
+            xBot = e.touches[0].clientX;
+            yBot = e.touches[0].clientY;
+        }, {passive: false});
+
+        document.addEventListener('touchmove', (e) => {
+            if (!xBot || !yBot) {
+                return;
+            }
+
+            const xTop = e.touches[0].clientX;
+            const yTop = e.touches[0].clientY;
+
+            const xDiff = xBot - xTop;
+            const yDiff = yBot - yTop;
+
+            if (Math.abs(xDiff) > Math.abs(yDiff)) {/*most significant*/
+                if (xDiff > 0) {
+                    /* left swipe */
+                    e.preventDefault(); // Prevents swipe back action
+                } else {
+                    /* right swipe */
+                    e.preventDefault(); // Prevents swipe back action
+                }
+            }
+            /* reset values */
+            xBot = null;
+            yBot = null;
+        }, {passive: false});
+
+
+
         const isActiveGameRef = ref(db, '/isGameActive');
         onValue(isActiveGameRef, (snapshot) => {
             const isGameActive = snapshot.val();
