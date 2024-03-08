@@ -53,9 +53,15 @@ const Quiz = () => {
     };
 
     const onDelete = (id: number) => {
-        setQuestions(prevState => prevState.filter((question) => question.id !== id));
-        const refQuestions = ref(db, '/quizzes/' + location?.state?.quizId + '/questions/' + id);
-        set(refQuestions, null);
+        const filteredQuestions = questions
+            .filter((question) => question.id !== id)
+            .map((item, index) => ({...item, id: index}));
+        setQuestions(filteredQuestions);
+        const refQuestion = ref(db, '/quizzes/' + location?.state?.quizId + '/questions/' + id);
+        set(refQuestion, null);
+
+        const refQuestions = ref(db, '/quizzes/' + location?.state?.quizId + '/questions');
+        set(refQuestions, filteredQuestions);
     };
 
     return (

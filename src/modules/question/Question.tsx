@@ -54,7 +54,7 @@ const Question = (props: Props) => {
             const puzzle = Object.values(props[QUESTION_TYPE.PUZZLE]) || [];
             setPuzzleParams(puzzle);
         }
-    }, []);
+    }, [props]);
 
 
     const onSave = () => {
