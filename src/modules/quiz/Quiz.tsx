@@ -53,6 +53,7 @@ const Quiz = () => {
     };
 
     const onDelete = (id: number) => {
+        // map new index for all item after deleting
         const filteredQuestions = questions
             .filter((question) => question.id !== id)
             .map((item, index) => ({...item, id: index}));
