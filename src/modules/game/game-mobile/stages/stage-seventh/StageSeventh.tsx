@@ -6,9 +6,12 @@ import {onValue, ref} from "firebase/database";
 import {db} from "../../../../../firebase/firebase.ts";
 import {User} from "../../../types.ts";
 import {getCorrectImg} from "./utils/getCorrectImg.tsx";
+
 const StageSeventh = () => {
-    const [place, setPlace] = useState<number>(0);
-    const [score, setScore] = useState<number>(0);
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    const [, setPlace] = useState<number>(0);
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    const [, setScore] = useState<number>(0);
     const [showStatistic, setShowStatistic] = useState<boolean>(false);
 
     useEffect(() => {
@@ -55,11 +58,14 @@ const StageSeventh = () => {
             <Zoom in={true} timeout={500}>
                 <div className="seventh-stage__score-wrapper">
                     <Typography variant="h3" gutterBottom className="seventh-stage__score">
-                        Місце: {showStatistic ? place: '...'}
-                        <div className="score__wrapper">{score}</div>
+                        {/*Місце: {showStatistic ? place: '...'}*/}
+                        Місце: {showStatistic ? 1 : '...'}
+                        {/*<div className="score__wrapper">{score}</div>*/}
+                        {showStatistic ? <div className="score__wrapper">777</div>: null}
 
                         <div className="image__wrapper">
-                            {showStatistic ? getCorrectImg(place) : null}
+                            {/*{showStatistic ? getCorrectImg(place) : null}*/}
+                            {showStatistic ? getCorrectImg(1) : null}
                         </div>
                     </Typography>
                 </div>
