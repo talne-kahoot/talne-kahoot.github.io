@@ -61,7 +61,7 @@ const StageSeventh = () => {
                         {/*Місце: {showStatistic ? place: '...'}*/}
                         Місце: {showStatistic ? 1 : '...'}
                         {/*<div className="score__wrapper">{score}</div>*/}
-                        {showStatistic ? <div className="score__wrapper">7777</div>: null}
+                        {showStatistic ? <div className="score__wrapper">77777</div>: null}
 
                         <div className="image__wrapper">
                             {/*{showStatistic ? getCorrectImg(place) : null}*/}

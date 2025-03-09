@@ -116,7 +116,7 @@ const StageSeventh = ({isAdmin}: Props) => {
                                 </div>
                                 <div className="score">
                                     {/*{players[2]?.score}*/}
-                                    7777
+                                    77777
                                 </div>
 
                                 <div className="img">
@@ -143,7 +143,7 @@ const StageSeventh = ({isAdmin}: Props) => {
                             </div>
                             <div className="score">
                                 {/*{players[0]?.score}*/}
-                                7777
+                                77777
                             </div>
 
                             <div className="img">
@@ -171,7 +171,7 @@ const StageSeventh = ({isAdmin}: Props) => {
                                 </div>
                                 <div className="score">
                                     {/*{players[1]?.score}*/}
-                                    7777
+                                    77777
                                 </div>
 
                                 <div className="img">
