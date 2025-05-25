@@ -111,12 +111,10 @@ const StageSeventh = ({isAdmin}: Props) => {
                         <Zoom in={true} timeout={1000} style={{transitionDelay: '3000ms'}}>
                             <div className="result-wrapper" style={{marginTop: 250}}>
                                 <div className="title">
-                                    {/*{players[2]?.name}*/}
-                                    Error: Not Found 404
+                                    {players[2]?.name}
                                 </div>
                                 <div className="score">
-                                    {/*{players[2]?.score}*/}
-                                    77777
+                                    {players[2]?.score}
                                 </div>
 
                                 <div className="img">
@@ -138,12 +136,10 @@ const StageSeventh = ({isAdmin}: Props) => {
                     <Zoom in={true} timeout={1000} style={{transitionDelay: '8800ms'}}>
                         <div className="result-wrapper">
                             <div className="title">
-                                Error: Not Found 404
-                                {/*{players[0]?.name}*/}
+                                {players[0]?.name}
                             </div>
                             <div className="score">
-                                {/*{players[0]?.score}*/}
-                                77777
+                                {players[0]?.score}
                             </div>
 
                             <div className="img">
@@ -166,12 +162,10 @@ const StageSeventh = ({isAdmin}: Props) => {
                         <Zoom in={true} timeout={1000} style={{transitionDelay: '5800ms'}}>
                             <div className="result-wrapper" style={{marginTop: 250}}>
                                 <div className="title">
-                                    {/*{players[1]?.name}*/}
-                                    Error: Not Found 404
+                                    {players[1]?.name}
                                 </div>
                                 <div className="score">
-                                    {/*{players[1]?.score}*/}
-                                    77777
+                                    {players[1]?.score}
                                 </div>
 
                                 <div className="img">
